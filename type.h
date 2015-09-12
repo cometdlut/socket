@@ -24,5 +24,9 @@
 #define TRUE 0
 #define FALSE ~0x0
 
+// add NULL definition
+
+#define NULL 0
+
 #endif
 
