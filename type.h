@@ -13,6 +13,11 @@
 #define u8 unsigned char
 #define s8 signed char
 
+// about long data type
+
+#define ul unsigned long
+#define sl signed long
+
 // status definition
 
 #define STATUS unsigned int
