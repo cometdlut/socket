@@ -4,14 +4,15 @@
 =====
 
 ## about this lib
-    There are alreay many socket libs on the web, but few of them match my needs in my personal perspective. So I try to design one for myself. I do this just to let us have a through understanding of what socket is, and how it can help us to do various things.
+    There are alreay many socket libs on the web, but few of them match my needs in my personal perspective. So I try to design one for myself. 
+I do this just to let us have a through understanding of what socket is, and how it can help us to do various things.
 
 ## prerequisites
 
-> c language
-> makefile
-> socket knowledge
-> about non block io
+1. c language
+2. makefile
+3. socket knowledge
+4. about non block io
 
 ## compile procedure
 
