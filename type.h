@@ -2,6 +2,8 @@
 #ifndef _TYPE_H
 #define _TYPE_H
 
+// data type definition
+
 #define u64 unsigned long long
 #define s64 signed long long
 #define u32 unsigned int
@@ -10,6 +12,12 @@
 #define s16 signed short
 #define u8 unsigned char
 #define s8 signed char
+
+// status definition
+
+#define STATUS unsigned int
+#define TRUE 0
+#define FALSE ~0x0
 
 #endif
 
