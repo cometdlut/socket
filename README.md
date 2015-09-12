@@ -22,7 +22,6 @@
 
 	log.c    -- about logs recording
 	epoll.c  -- epoll mechanism
-	kqueue.c -- kqueue mechanism
 	list.c   -- basic structure
 	cloud.c  -- entry of module
 	pipe.c   -- about pipe function
