@@ -8,7 +8,7 @@ struct _ListNode {
 	struct _ListNode* right;
 };
 
-typedef struct _ListNode* ListNode;
+typedef struct _ListNode ListNode;
 
 #endif
 
