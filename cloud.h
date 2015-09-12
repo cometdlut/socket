@@ -1,6 +1,6 @@
 
-#ifndef _CLOUD_INIT
-#define _CLOUND_INIT
+#ifndef _CLOUD_H
+#define _CLOUD_H
 
 
 #endif
