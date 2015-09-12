@@ -20,7 +20,7 @@ void add_node(ListNode* head, ListNode* node){
 void delete_node(ListNode* node){
 
 	node->prev->next = node-> next;
-	node->next->prev = node->prev;
+	node->next->prev = node-> prev;
 
 }
 

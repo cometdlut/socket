@@ -31,6 +31,7 @@
 	timer.c  -- about timer function
 	thread.c -- about thread function
 	module.c -- about module function
+	config.c -- read data from config file
 
 
 ## introduction to folders
