@@ -4,8 +4,7 @@
 =====
 
 ## about this lib
-    There are alreay many socket libs on the web, but few of them match my needs in my personal perspective. So I try to design one for myself. 
-I do this just to let us have a through understanding of what socket is, and how it can help us to do various things.
+    This lib is just to show you how to make full use of non block socket io function.
 
 ## prerequisites
 
