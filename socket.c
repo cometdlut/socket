@@ -12,7 +12,7 @@ STATUS create_socket(int* socket) {
 
 	int fd;
 
-	fd = socket(PF_INET, SOCKET_STREAM, 0);
+	fd = socket(AF_INET, SOCKET_STREAM, 0);
 	if(fd < 0) {
 	
 		return FALSE;
