@@ -104,7 +104,7 @@ STATUS read_socket(int socket) {
 
 	while(1) {
 
-		len = read(socket, buf + ret, 1024);
+		len = read(socket, buf + ret, 1024 - ret);
 		if(len == -1) {
 			if(errono == EINTR) {
 				continue;
@@ -148,7 +148,7 @@ u32 write_socket(int socket, char* buffer, int length){
 
 	while(1) {
 
-		len = write(socket, buffer + ret, length);
+		len = write(socket, buffer + ret, length - ret);
 		if(len == -1) {
 			if(errno == EINTR) {
 				continue;
