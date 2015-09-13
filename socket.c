@@ -131,13 +131,13 @@ STATUS read_socket(int socket) {
 
 // write data
 
-u32 write_socket(int socket, char* buffer, int length){
+u32 write_socket(int socket, char* buf, int length){
 
 	int len;
 	int broken;
 	int ret;
 
-	if(!buffer || 0 == length) {
+	if(!buf || 0 == length) {
 		return;
 	}
 
@@ -146,7 +146,7 @@ u32 write_socket(int socket, char* buffer, int length){
 
 	while(1) {
 
-		len = write(socket, buffer + ret, length - ret);
+		len = write(socket, buf + ret, length - ret);
 		if(len == -1) {
 			if(errno == EINTR) {
 				continue;
