@@ -45,9 +45,9 @@ STATUS bind_socket(int socket, u32 ip, u16 port) {
 
 // listen socket
 
-STATUS listen_socket(int socket, u32 queue) {
+STATUS listen_socket(int socket) {
 
-	if(listen(socket, queue)) {
+	if(listen(socket, 5)) {
 	
 		return FALSE;
 	}
