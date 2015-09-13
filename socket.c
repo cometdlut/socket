@@ -100,6 +100,7 @@ STATUS read_socket(int socket) {
 	ret = 0;
 	len  = 0;
 	total = 1024;
+	broken = 0;
 
 	while(1) {
 
@@ -143,6 +144,7 @@ u32 write_socket(int socket, char* buffer, int length){
 	}
 
 	ret = 0;
+	broken = 0;
 
 	while(1) {
 
