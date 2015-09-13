@@ -88,7 +88,6 @@ STATUS read_socket(int socket) {
 
 	char* buf;
 	int len;
-	int total;
 	int ret;
 	int broken;
 
@@ -99,7 +98,6 @@ STATUS read_socket(int socket) {
 
 	ret = 0;
 	len  = 0;
-	total = 1024;
 	broken = 0;
 
 	while(1) {
