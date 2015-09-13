@@ -84,16 +84,92 @@ STATUS accept_socket(int socket, int* new_socket, u32* ip, u16* port){
 
 // read data
 
-ListNode* read_socket(int socket) {
+STATUS read_socket(int socket) {
 
-	return NULL;
+	char* buf;
+	int len;
+	int total;
+	int ret;
+	int broken;
+
+	buf = (char*) malloc(1024);
+	if(!buf) {
+		return FALSE;
+	}
+
+	ret = 0;
+	len  = 0;
+	total = 1024;
+
+	while(1) {
+
+		len = read(socket, buf + ret, 1024);
+		if(len == -1) {
+			if(errono == EINTR) {
+				continue;
+			}else {
+				broken = 1;
+				break;
+			}
+		}else if(len == 0) {
+			break;
+		}else {
+
+			ret += len;
+		}
+	}
+
+	if(broken) {
+
+		free(buf);
+		forward_message();
+		return FALSE;
+	}
+
+	forward_message();
+	return TRUE;
 }
 
 // write data
 
-void write_socket(int socket, char* buffer, int length){
+u32 write_socket(int socket, char* buffer, int length){
 
-	return;
+	int len;
+	int broken;
+	int ret;
+
+	if(!buffer || 0 == length) {
+		return;
+	}
+
+	ret = 0;
+
+	while(1) {
+
+		len = write(socket, buffer + ret, length);
+		if(len == -1) {
+			if(errno == EINTR) {
+				continue;
+			}else {
+				broken = 1;
+				break;
+			}
+		}else if(len == 0) {
+			break;
+		}else {
+			ret += len;
+		}
+	}
+
+	if(broken) {
+
+		free(buf);
+		forward_message();
+		return TRUE;
+	}
+
+	forward_message();
+	return FALSE;
 }
 
 
