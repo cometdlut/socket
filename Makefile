@@ -11,7 +11,8 @@ cloud: $(OBJS)
 	$(CC) -o cloud $(OBJS)
 
 clean:
-	$(RM) -rf *.obj cloud
+	$(RM) -rf *.o cloud
 		
 %.o: %.c
 	$(CC) -c $<
+
