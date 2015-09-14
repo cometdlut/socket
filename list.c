@@ -2,14 +2,16 @@
 #include "type.h"
 #include "list.h"
 
-void init_node (ListNode* node) {
+void init_node(ListNode * node)
+{
 
 	node->prev = node;
 	node->next = node;
 
 }
 
-void add_node(ListNode* head, ListNode* node){
+void add_node(ListNode * head, ListNode * node)
+{
 
 	node->next = head;
 	node->prev = head->prev;
@@ -17,20 +19,20 @@ void add_node(ListNode* head, ListNode* node){
 	head->prev = node;
 }
 
-void delete_node(ListNode* node){
+void delete_node(ListNode * node)
+{
 
-	node->prev->next = node-> next;
-	node->next->prev = node-> prev;
+	node->prev->next = node->next;
+	node->next->prev = node->prev;
 
 }
 
-STATUS is_list_empty(ListNode* head) {
+STATUS is_list_empty(ListNode * head)
+{
 
-	if(head == head-> next)
+	if (head == head->next)
 		return TRUE;
 
 	return FALSE;
 
 }
-
-

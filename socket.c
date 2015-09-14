@@ -11,13 +11,14 @@
 
 // create socket
 
-STATUS create_socket(int* sock) {
+STATUS create_socket(int *sock)
+{
 
 	int fd;
 
 	fd = socket(AF_INET, SOCK_STREAM, 0);
-	if(fd < 0) {
-	
+	if (fd < 0) {
+
 		return FALSE;
 	}
 
@@ -27,7 +28,8 @@ STATUS create_socket(int* sock) {
 
 // bind socket
 
-STATUS bind_socket(int sock, u32 ip, u16 port) {
+STATUS bind_socket(int sock, u32 ip, u16 port)
+{
 
 	struct sockaddr_in server_addr;
 	int opt;
@@ -38,8 +40,8 @@ STATUS bind_socket(int sock, u32 ip, u16 port) {
 	server_addr.sin_port = port;
 
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-	if(bind(sock, (struct sockaddr*)(&server_addr), sizeof(server_addr))) {
-	
+	if (bind(sock, (struct sockaddr *)(&server_addr), sizeof(server_addr))) {
+
 		return FALSE;
 	}
 
@@ -48,10 +50,11 @@ STATUS bind_socket(int sock, u32 ip, u16 port) {
 
 // listen socket
 
-STATUS listen_socket(int sock) {
+STATUS listen_socket(int sock)
+{
 
-	if(listen(sock, 5)) {
-	
+	if (listen(sock, 5)) {
+
 		return FALSE;
 	}
 
@@ -61,20 +64,21 @@ STATUS listen_socket(int sock) {
 
 // accept socket
 
-STATUS accept_socket(int sock, int* new_sock, u32* ip, u16* port){
+STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port)
+{
 
 	int fd;
 	struct sockaddr_in client_addr;
 	int client_len;
 
-	if(!new_sock || !ip || !port) {
+	if (!new_sock || !ip || !port) {
 
 		return FALSE;
 	}
 
 	client_len = sizeof(client_addr);
-	fd = accept(sock, (struct sockaddr*)(&client_addr), &client_len);
-	if(fd < 0) {
+	fd = accept(sock, (struct sockaddr *)(&client_addr), &client_len);
+	if (fd < 0) {
 
 		return FALSE;
 	}
@@ -84,89 +88,90 @@ STATUS accept_socket(int sock, int* new_sock, u32* ip, u16* port){
 	*port = client_addr.sin_port;
 
 	return TRUE;
-	
+
 }
 
 // read data
 
-STATUS read_socket(int sock) {
+STATUS read_socket(int sock)
+{
 
-	char* buf;
+	char *buf;
 	int len;
 	int ret;
 	int broken;
 
-	buf = (char*) malloc(1024);
-	if(!buf) {
+	buf = (char *)malloc(1024);
+	if (!buf) {
 		return FALSE;
 	}
 
 	ret = 0;
-	len  = 0;
+	len = 0;
 	broken = 0;
 
-	while(1) {
+	while (1) {
 
 		len = read(sock, buf + ret, 1024 - ret);
-		if(len == -1) {
-			if(errno == EINTR) {
+		if (len == -1) {
+			if (errno == EINTR) {
 				continue;
-			}else {
+			} else {
 				broken = 1;
 				break;
 			}
-		}else if(len == 0) {
+		} else if (len == 0) {
 			break;
-		}else {
+		} else {
 
 			ret += len;
 		}
 	}
 
-	if(broken) {
+	if (broken) {
 
 		free(buf);
 		//forward_message();
 		return FALSE;
 	}
-
 	//forward_message();
 	return TRUE;
 }
 
 // write data
 
-u32 write_socket(int sock, char* buf, int length){
+u32 write_socket(int sock, char *buf, int length)
+{
 
 	int len;
 	int broken;
 	int ret;
 
-	if(!buf || 0 == length) {
+	if (!buf || 0 == length) {
 		return;
 	}
 
 	ret = 0;
 	broken = 0;
 
-	while(1) {
+	while (1) {
 
 		len = write(sock, buf + ret, length - ret);
-		if(len == -1) {
-			if(errno == EINTR) {
+		if (len == -1) {
+			if (errno == EINTR) {
 				continue;
-			}else {
+			} else {
 				broken = 1;
 				break;
 			}
-		}else if(len == 0) {
+		} else if (len == 0) {
 			break;
-		}else {
+		} else {
 			ret += len;
 		}
 	}
 
-	if(broken) {
+	if (broken) {
 
 		free(buf);
 		return TRUE;
@@ -174,5 +179,3 @@ u32 write_socket(int sock, char* buf, int length){
 
 	return FALSE;
 }
-
-

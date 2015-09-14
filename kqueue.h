@@ -8,4 +8,3 @@ void kqueue_del_socket();
 void kqueue_run();
 
 #endif
-

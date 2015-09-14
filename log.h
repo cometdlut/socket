@@ -13,9 +13,8 @@
 void init_debug();
 void set_debug_level();
 
-void log_print_error(const char* fmt, ...) ;
-void log_print_warn(const char* fmt, ...) ;
-void log_print_msg(const char* fmt, ...) ;
+void log_print_error(const char *fmt, ...);
+void log_print_warn(const char *fmt, ...);
+void log_print_msg(const char *fmt, ...);
 
 #endif
-

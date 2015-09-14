@@ -7,5 +7,4 @@ void select_add_socket();
 void select_del_socket();
 void select_run();
 
-
 #endif

@@ -9,4 +9,3 @@
 #define KQUEUE_SWITCH  0x0
 
 #endif
-
