@@ -141,6 +141,11 @@ STATUS read_socket(int sock)
 		return FALSE;
 	}
 
+	if(!len) {
+		free(buf);
+		return TRUE;
+	}
+
 	forward_message();
 	return TRUE;
 }
