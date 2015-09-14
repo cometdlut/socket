@@ -26,7 +26,9 @@
 
 // add NULL definition
 
+#ifndef NULL
 #define NULL 0
+#endif
 
 #endif
 

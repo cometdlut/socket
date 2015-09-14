@@ -59,7 +59,7 @@ void log_print_warn(const char* fmt, ...) {
 
 // print normal log message
 
-void log_print_msg(const char* fmt) {
+void log_print_msg(const char* fmt, ...) {
 
 	va_list  args;
 	char buffer[1024];
