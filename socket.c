@@ -91,6 +91,12 @@ STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port)
 
 }
 
+// forward message
+
+void forward_message() {
+
+}
+
 // read data
 
 STATUS read_socket(int sock)
@@ -131,10 +137,11 @@ STATUS read_socket(int sock)
 	if (broken) {
 
 		free(buf);
-		//forward_message();
+		forward_message();
 		return FALSE;
 	}
-	//forward_message();
+
+	forward_message();
 	return TRUE;
 }
 
