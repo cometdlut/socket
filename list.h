@@ -6,8 +6,8 @@
 
 struct _ListNode {
 	
-	struct _ListNode* left;
-	struct _ListNode* right;
+	struct _ListNode* prev;
+	struct _ListNode* next;
 };
 
 typedef struct _ListNode ListNode;
