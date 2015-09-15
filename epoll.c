@@ -7,6 +7,7 @@
 
 #include "type.h"
 #include "socket.h"
+#include "handle.h"
 
 #define MAX_EVENT_NUM 1024
 
@@ -73,6 +74,8 @@ void epoll_run(int listenfd) {
 
 				result = accept_socket(sock, &client, &ip, &port);
 				epoll_add_socket(client);
+
+				process_message(NEW_SOCK, client);
 			}
 
 			// read data

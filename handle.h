@@ -18,7 +18,6 @@ typedef struct _SOCK_HANDLE {
 	func onConnect;
 	func onClose;
 	func onRecv;
-	func onSend;
 
 }SOCK_HANDLE;
 
@@ -27,12 +26,11 @@ typedef struct _SOCK_HANDLE {
 #define NEW_SOCK   0x1
 #define SOCK_CLOSE 0x2
 #define RECV_DATA  0x3
-#define SEND_DATA  0x4
 
 // function prototype
 
 void init_handle();
-void register_callback_func(func, func, func, func);
+void register_callback_func(func, func, func);
 void process_message(int, int);
 
 #endif

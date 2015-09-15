@@ -50,7 +50,6 @@ static void init_handle_struct(SOCK_HANDLE* p_hand, int sock) {
 	p_hand-> onConnect = g_onConnect;
 	p_hand-> onClose = g_onClose;
 	p_hand-> onRecv = g_onRecv;
-	p_hand-> onSend = g_onSend;
 }
 
 // register sock
@@ -60,12 +59,11 @@ static void register_sock(SOCK_HANDLE* p_hand) {
 	add_node(&g_handle[p_hand-> sock % HASH_NUM], &p_hand->node);
 }
 
-void register_callback_func(func onConnect, func onClose, func onRecv, func onSend) {
+void register_callback_func(func onConnect, func onClose, func onRecv) {
 
 	g_onConnect = onConnect;
 	g_onClose = onClose;
 	g_onRecv = onRecv;
-	g_onSend = onSend;
 }
 
 // remove sock
@@ -98,7 +96,7 @@ static SOCK_HANDLE* find_handle(int sock) {
 	return 0x0;
 }
 
-// process sock message from
+// process sock message from epoll
 
 void process_message(int type, int sock) {
 
@@ -146,15 +144,6 @@ void process_message(int type, int sock) {
 
 			break;
 
-		case SEND_DATA:
-
-			p_hand = find_handle(sock);
-			if(p_hand) {
-
-				p_hand->onSend(p_hand);
-			}
-
-			break;
 
 		default:
 			assert(0);
