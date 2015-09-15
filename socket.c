@@ -8,6 +8,7 @@
 #include <errno.h>
 
 #include "type.h"
+#include "log.h"
 
 // create socket
 
@@ -19,6 +20,7 @@ STATUS create_socket(int *sock)
 	fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (fd < 0) {
 
+		log_print_error("Failed to create socket!\n");
 		return FALSE;
 	}
 
@@ -42,6 +44,7 @@ STATUS bind_socket(int sock, u32 ip, u16 port)
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 	if (bind(sock, (struct sockaddr *)(&server_addr), sizeof(server_addr))) {
 
+		log_print_error("Failed to bind socket!\n");
 		return FALSE;
 	}
 
@@ -55,6 +58,7 @@ STATUS listen_socket(int sock)
 
 	if (listen(sock, 5)) {
 
+		log_print_error("Failed to listen socket!\n");
 		return FALSE;
 	}
 
@@ -73,6 +77,7 @@ STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port)
 
 	if (!new_sock || !ip || !port) {
 
+		log_print_error("Parameter is NULL in accept_socket function!\n");
 		return FALSE;
 	}
 
@@ -80,6 +85,7 @@ STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port)
 	fd = accept(sock, (struct sockaddr *)(&client_addr), &client_len);
 	if (fd < 0) {
 
+		log_print_error("Failed to accepet socket!\n");
 		return FALSE;
 	}
 
