@@ -22,7 +22,7 @@ void init_timer_struct(timer* p_tm, int gap, void(*func)(void*), void* param) {
 	// if timer == 0 or param not valid,
 	// just return from add_timer function
 
-	if(!p_tm, !gap || !func || param) {
+	if(!p_tm ||  !gap || !func || !param) {
 
 		return;
 	}
