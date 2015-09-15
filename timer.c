@@ -22,6 +22,14 @@ void add_timer(int gap, void(*func)(void*), void* param) {
 	timer* p_tm;
 	ListNode* p_node;
 
+	// if timer == 0 or param not valid,
+	// just return from add_timer function
+
+	if(!gap || !func || param) {
+
+		return;
+	}
+
 	init_node(&tm.node);
 	tm.tick = g_tick + gap;
 	tm.func = func;
