@@ -71,6 +71,7 @@ void update_timer() {
 		p_prev = p_node;
 		p_node = p_node-> next;
 
+		delete_node(p_prev);
 		p_tm->func(p_tm-> param);
 
 	}
