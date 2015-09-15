@@ -166,15 +166,45 @@ STATUS write_socket(int sock)
 
 	char* buf;
 	int length;
+	SEND_BUF* p_send;
 
 	int len;
 	int broken;
 	int ret;
 
+	// check if we have send buffer already
+
+	p_send = get_send_buf(sock);
+	if(!p_send) {
+
+		return FALSE;
+	}
+
+	// initialise temp variable
+
 	ret = 0;
 	broken = 0;
 
+	buf = p_send-> buf + p_send-> start;
+	len = p_send->len - p_send-> start;
+
 	while (1) {
+
+		// check if all data has been sent
+
+		if(ret == len ) {
+
+			free(p_send-> buf);
+			delete_send_buf(p_send);
+
+			p_send = get_send_buf(sock);
+			if(!p_send) {
+
+				return FALSE;
+			}
+		}
+
+		// begin to send data using socket api
 
 		len = write(sock, buf + ret, length - ret);
 		if (len == -1) {
@@ -191,9 +221,11 @@ STATUS write_socket(int sock)
 		}
 	}
 
+	// if broken, just report it
+
 	if (broken) {
 
-		free(buf);
+		process_message(SOCK_CLOSE, sock);
 		return FALSE;
 	}
 

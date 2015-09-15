@@ -92,7 +92,7 @@ void add_send_buf(int sock, SEND_BUF* p_buf) {
 
 // delete send buffer
 
-static void delete_del_buf(SEND_BUF* p_buf) {
+static void delete_send_buf(SEND_BUF* p_buf) {
 	
 	delete_node(&p_buf-> node);
 	
@@ -100,10 +100,9 @@ static void delete_del_buf(SEND_BUF* p_buf) {
 
 // get send buffer
 
-STATUS get_send_buf(int sock, SEND_BUF** pp_send, u32* len) {
+SEND_BUF* get_send_buf(int sock) {
 	
 	SEND_SOCK* p_send;
-	SEND_BUF* p_buf;
 	ListNode* p_node;
 	
 	// find  send sock first
@@ -111,7 +110,7 @@ STATUS get_send_buf(int sock, SEND_BUF** pp_send, u32* len) {
 	p_send = find_send_sock(sock);
 	if(NULL == p_send) {
 		
-		return FALSE;
+		return 0x0;
 	}
 	
 	// get node first
@@ -119,16 +118,10 @@ STATUS get_send_buf(int sock, SEND_BUF** pp_send, u32* len) {
 	p_node = p_send->head.next;
 	if(p_node == &p_send->head) {
 		
-		return FALSE;
+		return 0x0;
 	}
 	
-	
-	p_buf = (SEND_BUF*) p_node;
-	** pp_send =  p_buf-> buf;
-	*len = p_buf->len;
-	delete_del_buf(p_buf);
-	
-	return TRUE;
+	return (SEND_BUF*) p_node;
 }
 
 // init rcv buffer

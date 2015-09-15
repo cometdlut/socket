@@ -54,6 +54,7 @@ void epoll_run(int listenfd) {
 	u32 client;
 	u32 ip;
 	u16 port;
+	SEND_SOCK* p_send;
 
 	while (1) {
 
@@ -70,8 +71,23 @@ void epoll_run(int listenfd) {
 
 			if(sock == listenfd) {
 
+				// add socket to epoll procedure
+
 				assert(TRUE == accept_socket(sock, &client, &ip, &port));
 				epoll_add_socket(client);
+
+				p_send = (SEND_SOCK*) malloc(sizeof(SEND_SOCK));
+				if(!p_send) {
+
+					assert(0);
+				}
+
+				// add socket to send buffer procedure
+
+				init_send_sock(p_send, client);
+				add_send_sock(p_send);
+
+				// send message for after use
 
 				process_message(NEW_SOCK, client);
 			}
