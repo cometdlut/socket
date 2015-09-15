@@ -18,9 +18,9 @@ typedef struct _timer {
 // define function
 
 
-void timer_init();
-void timer_add(int gap, void(*func)(void*), void* param);
-void timer_del(timer* p_tm);
+void init_timer();
+void add_timer(int gap, void(*func)(void*), void* param);
+void delete_timer(timer* p_tm);
 void update_timer();
 
 #endif

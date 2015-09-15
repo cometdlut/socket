@@ -8,7 +8,7 @@ static ListNode g_timer_head;
 
 // init timer module
 
-void timer_init() {
+void init_timer() {
 
 	g_tick = 0;
 	init_node(&g_timer_head);
@@ -16,7 +16,7 @@ void timer_init() {
 
 // register timer module
 
-void timer_add(int gap, void(*func)(void*), void* param) {
+void add_timer(int gap, void(*func)(void*), void* param) {
 
 	timer tm;
 	timer* p_tm;
@@ -41,7 +41,7 @@ void timer_add(int gap, void(*func)(void*), void* param) {
 
 // delete timer module
 
-void timer_delete(timer* p_tm) {
+void delete_timer(timer* p_tm) {
 
 	delete_node(&p_tm->node);
 }
