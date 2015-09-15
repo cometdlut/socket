@@ -89,8 +89,7 @@ void epoll_run(int listenfd) {
 
 			else if(events[i].events & EPOLLOUT) {
 
-				buf = "hello, world";
-				write_socket(sock, buf, strlen(buf));
+				write_socket(sock);
 			}
 		}
 	}

@@ -9,6 +9,7 @@
 
 #include "type.h"
 #include "log.h"
+#include "handle.h"
 
 // create socket
 
@@ -99,8 +100,9 @@ STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port)
 
 // forward message
 
-void forward_message() {
+void forward_sock_buffer(int sock, char* buf, int length) {
 
+	return;
 }
 
 // read data
@@ -143,7 +145,9 @@ STATUS read_socket(int sock)
 	if (broken) {
 
 		free(buf);
-		forward_message();
+		close(sock);
+
+		process_message(SOCK_CLOSE, sock);
 		return FALSE;
 	}
 
@@ -152,22 +156,21 @@ STATUS read_socket(int sock)
 		return TRUE;
 	}
 
-	forward_message();
+	forward_sock_buffer(sock, buf, len);
 	return TRUE;
 }
 
 // write data
 
-u32 write_socket(int sock, char *buf, int length)
+STATUS write_socket(int sock)
 {
+
+	char* buf;
+	int length;
 
 	int len;
 	int broken;
 	int ret;
-
-	if (!buf || 0 == length) {
-		return;
-	}
 
 	ret = 0;
 	broken = 0;
@@ -192,8 +195,8 @@ u32 write_socket(int sock, char *buf, int length)
 	if (broken) {
 
 		free(buf);
-		return TRUE;
+		return FALSE;
 	}
 
-	return FALSE;
+	return TRUE;
 }
