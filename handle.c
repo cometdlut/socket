@@ -7,9 +7,9 @@
 
 // define global variable
 
-#define HASH_NUM 10
+#define HANDLE_HASH_NUM 10
 
-static ListNode g_handle[HASH_NUM];
+static ListNode g_handle[HANDLE_HASH_NUM];
 
 static func g_onConnect;
 static func g_onClose;
@@ -25,7 +25,7 @@ void init_handle() {
 
 	// init node
 
-	for(i = 0; i < HASH_NUM; i ++) {
+	for(i = 0; i < HANDLE_HASH_NUM; i ++) {
 
 		init_node(&g_handle[i]);
 	}
