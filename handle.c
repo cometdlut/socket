@@ -14,7 +14,6 @@ static ListNode g_handle[HANDLE_HASH_NUM];
 static func g_onConnect;
 static func g_onClose;
 static func g_onRecv;
-static func g_onSend;
 
 
 // define function here

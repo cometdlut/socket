@@ -100,7 +100,7 @@ static void delete_del_buf(SEND_BUF* p_buf) {
 
 // get send buffer
 
-STATUS get_send_buf(int sock, SEND_BUF** pp_send, s32* len) {
+STATUS get_send_buf(int sock, SEND_BUF** pp_send, u32* len) {
 	
 	SEND_SOCK* p_send;
 	SEND_BUF* p_buf;
@@ -130,4 +130,63 @@ STATUS get_send_buf(int sock, SEND_BUF** pp_send, s32* len) {
 	
 	return TRUE;
 }
+
+// init rcv buffer
+
+void init_rcv_buf(RCV_BUF* p_rcv, s8* buf, u32 len) {
+
+	init_node(&p_rcv->node);
+
+	p_rcv->buf = buf;
+	p_rcv->len = len;
+
+}
+
+// add buf to socket
+
+STATUS add_buf_to_sock(int sock, RCV_BUF* p_rcv) {
+
+	SOCK_HANDLE* p_hand;
+
+	p_hand = find_handle(sock);
+	if(!p_hand){
+
+		return FALSE;
+	}
+
+	add_node(&p_hand->read, &p_rcv-> node);
+
+}
+
+// delete buf from socket
+
+STATUS delete_buf_from_sock(int sock, s8** buf, u32* len) {
+
+	SOCK_HANDLE* p_hand;
+	RCV_BUF* p_rcv;
+	ListNode* p_node;
+
+	p_hand = find_handle(sock);
+	if(!p_hand) {
+
+		return FALSE;
+	}
+
+	p_node = p_hand->read.next;
+	if(p_node == &p_hand->read) {
+
+		return FALSE;
+	}
+
+	p_rcv = (RCV_BUF*)p_node;
+	*buf = p_rcv-> buf;
+	*len = p_rcv->len;
+
+	delete_node(p_node);
+
+	return TRUE;
+
+}
+
+
 

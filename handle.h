@@ -12,7 +12,6 @@ typedef struct _SOCK_HANDLE {
 
 	ListNode node;
 	ListNode read;
-	ListNode write;
 
 	int sock;
 	func onConnect;
