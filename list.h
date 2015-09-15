@@ -4,13 +4,12 @@
 
 // struct definition
 
-struct _ListNode {
+typedef struct _ListNode {
 
 	struct _ListNode *prev;
 	struct _ListNode *next;
-};
+}ListNode;
 
-typedef struct _ListNode ListNode;
 
 // type definition
 

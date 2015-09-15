@@ -8,6 +8,8 @@
 #include <errno.h>
 
 #include "type.h"
+#include "log.h"
+#include "handle.h"
 
 // create socket
 
@@ -19,6 +21,7 @@ STATUS create_socket(int *sock)
 	fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (fd < 0) {
 
+		log_print_error("Failed to create socket!\n");
 		return FALSE;
 	}
 
@@ -41,6 +44,7 @@ STATUS bind_socket(int sock, u32 ip, u16 port)
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 	if (bind(sock, (struct sockaddr *)(&server_addr), sizeof(server_addr))) {
 
+		log_print_error("Failed to bind socket!\n");
 		return FALSE;
 	}
 
@@ -54,6 +58,7 @@ STATUS listen_socket(int sock)
 
 	if (listen(sock, 5)) {
 
+		log_print_error("Failed to listen socket!\n");
 		return FALSE;
 	}
 
@@ -72,6 +77,7 @@ STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port)
 
 	if (!new_sock || !ip || !port) {
 
+		log_print_error("Parameter is NULL in accept_socket function!\n");
 		return FALSE;
 	}
 
@@ -79,6 +85,7 @@ STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port)
 	fd = accept(sock, (struct sockaddr *)(&client_addr), &client_len);
 	if (fd < 0) {
 
+		log_print_error("Failed to accepet socket!\n");
 		return FALSE;
 	}
 
@@ -92,8 +99,9 @@ STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port)
 
 // forward message
 
-void forward_message() {
+void forward_sock_buffer(int sock, char* buf, int length) {
 
+	return;
 }
 
 // read data
@@ -136,7 +144,9 @@ STATUS read_socket(int sock)
 	if (broken) {
 
 		free(buf);
-		forward_message();
+		close(sock);
+
+		process_message(SOCK_CLOSE, sock);
 		return FALSE;
 	}
 
@@ -145,22 +155,21 @@ STATUS read_socket(int sock)
 		return TRUE;
 	}
 
-	forward_message();
+	forward_sock_buffer(sock, buf, len);
 	return TRUE;
 }
 
 // write data
 
-u32 write_socket(int sock, char *buf, int length)
+STATUS write_socket(int sock)
 {
+
+	char* buf;
+	int length;
 
 	int len;
 	int broken;
 	int ret;
-
-	if (!buf || 0 == length) {
-		return;
-	}
 
 	ret = 0;
 	broken = 0;
@@ -185,8 +194,8 @@ u32 write_socket(int sock, char *buf, int length)
 	if (broken) {
 
 		free(buf);
-		return TRUE;
+		return FALSE;
 	}
 
-	return FALSE;
+	return TRUE;
 }
