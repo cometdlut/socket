@@ -35,7 +35,6 @@ void init_handle() {
 	g_onConnect = 0x0;
 	g_onClose = 0x0;
 	g_onRecv = 0x0;
-	g_onSend = 0x0;
 }
 
 // init struct
