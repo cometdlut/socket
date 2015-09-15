@@ -229,5 +229,7 @@ STATUS write_socket(int sock)
 		return FALSE;
 	}
 
+
+	p_send->start += ret;
 	return TRUE;
 }
