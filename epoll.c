@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <sys/epoll.h>
 #include <fcntl.h>
+#include <string.h>
+
+#include "type.h"
+#include "socket.h"
 
 #define MAX_EVENT_NUM 1024
 
@@ -42,11 +46,16 @@ void epoll_del_socket(int sock)
 	epoll_ctl(epoll, EPOLL_CTL_DEL, sock, &event);
 }
 
-void epoll_run()
+void epoll_run(int listenfd)
 {
 	int i;
 	int ret;
 	int sock;
+	u32 client;
+	u32 ip;
+	u16 port;
+	STATUS result;
+	s8* buf;
 
 	while (1) {
 
@@ -61,27 +70,27 @@ void epoll_run()
 
 			// listen socket
 
-			if(0) {
+			if(sock == listenfd) {
 
-				continue;
+				result = accept_socket(sock, &client, &ip, &port);
+				epoll_add_socket(client);
 			}
 
 			// read data
 
 			else if(events[i].events & EPOLLIN) {
 
-				continue;
+				read_socket(sock);
 			}
 
 			// send data
 
 			else if(events[i].events & EPOLLOUT) {
 
-				continue;
+				buf = "hello, world";
+				write_socket(sock, buf, strlen(buf));
 			}
-
 		}
-
 	}
-
 }
+
