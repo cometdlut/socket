@@ -43,6 +43,8 @@ void init_handle() {
 static void init_handle_struct(SOCK_HANDLE* p_hand, int sock) {
 
 	init_node(&p_hand->node);
+	init_node(&p_hand->read);
+	init_node(&p_hand->write);
 
 	p_hand-> sock = sock;
 	p_hand-> onConnect = g_onConnect;
@@ -116,7 +118,7 @@ void process_message(int type, int sock) {
 			init_handle_struct(p_hand, sock);
 			register_sock(p_hand);
 
-			p_hand->onConnect(sock);
+			p_hand->onConnect(p_hand);
 
 			break;
 
@@ -127,7 +129,7 @@ void process_message(int type, int sock) {
 			p_hand = find_handle(sock);
 			if(p_hand) {
 
-				p_hand->onClose(sock);
+				p_hand->onClose(p_hand);
 			}
 
 			remove_sock(p_hand);
@@ -139,7 +141,7 @@ void process_message(int type, int sock) {
 			p_hand = find_handle(sock);
 			if(p_hand) {
 
-				p_hand->onRecv(sock);
+				p_hand->onRecv(p_hand);
 			}
 
 			break;
@@ -149,7 +151,7 @@ void process_message(int type, int sock) {
 			p_hand = find_handle(sock);
 			if(p_hand) {
 
-				p_hand->onSend(sock);
+				p_hand->onSend(p_hand);
 			}
 
 			break;

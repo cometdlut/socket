@@ -6,11 +6,14 @@
 
 // define basic struct
 
-typedef void(*func)();
+typedef void(*func)(void*);
 
 typedef struct _SOCK_HANDLE {
 
 	ListNode node;
+	ListNode read;
+	ListNode write;
+
 	int sock;
 	func onConnect;
 	func onClose;
