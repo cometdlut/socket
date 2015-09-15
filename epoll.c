@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/epoll.h>
+#include <fcntl.h>
 
 #define MAX_EVENT_NUM 1024
 
 static int epoll;
-static epoll_event events[MAX_EVENT_NUM];
+static struct epoll_event events[MAX_EVENT_NUM];
 
 void epoll_init()
 {
@@ -19,7 +20,7 @@ void epoll_add_socket(int sock)
 
 	// add socket to epoll
 
-	epoll_event event;
+	struct epoll_event event;
 
 	event.data.fd = sock;
 	event.events = EPOLLIN;
@@ -35,7 +36,7 @@ void epoll_add_socket(int sock)
 void epoll_del_socket(int sock)
 {
 
-	epoll_event event;
+	struct epoll_event event;
 	event.data.fd = sock;
 
 	epoll_ctl(epoll, EPOLL_CTL_DEL, sock, &event);
@@ -49,7 +50,7 @@ void epoll_run()
 
 	while (1) {
 
-		ret = epoll_wait(epoll, events. MAX_EVENT_NUM - 1);
+		ret = epoll_wait(epoll, events, MAX_EVENT_NUM - 1, -1);
 		if(ret < 0) {
 			break;
 		}
