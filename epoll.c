@@ -49,22 +49,20 @@ void epoll_del_socket(int sock) {
 void epoll_run(int listenfd) {
 
 	int i;
-	int ret;
+	int size;
 	int sock;
 	u32 client;
 	u32 ip;
 	u16 port;
-	STATUS result;
-	s8* buf;
 
 	while (1) {
 
-		ret = epoll_wait(epoll, events, MAX_EVENT_NUM - 1, -1);
-		if(ret < 0) {
+		size = epoll_wait(epoll, events, MAX_EVENT_NUM - 1, -1);
+		if(size < 0) {
 			break;
 		}
 
-		for(i = 0; i < ret; i ++) {
+		for(i = 0; i < size; i ++) {
 
 			sock = events[i].data.fd;
 
@@ -72,7 +70,7 @@ void epoll_run(int listenfd) {
 
 			if(sock == listenfd) {
 
-				result = accept_socket(sock, &client, &ip, &port);
+				assert(TRUE == accept_socket(sock, &client, &ip, &port));
 				epoll_add_socket(client);
 
 				process_message(NEW_SOCK, client);
