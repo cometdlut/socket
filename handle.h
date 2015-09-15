@@ -26,6 +26,7 @@ typedef struct _SOCK_HANDLE {
 #define NEW_SOCK   0x1
 #define SOCK_CLOSE 0x2
 #define RECV_DATA  0x3
+#define TIME_OUT   0x4
 
 // function prototype
 
