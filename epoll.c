@@ -13,13 +13,13 @@
 static int epoll;
 static struct epoll_event events[MAX_EVENT_NUM];
 
-void epoll_init()
-{
+void epoll_init() {
+
 	epoll = epoll_create(5);
 }
 
-void epoll_add_socket(int sock)
-{
+void epoll_add_socket(int sock) {
+
 	int opt;
 
 	// add socket to epoll
@@ -37,8 +37,7 @@ void epoll_add_socket(int sock)
 
 }
 
-void epoll_del_socket(int sock)
-{
+void epoll_del_socket(int sock) {
 
 	struct epoll_event event;
 	event.data.fd = sock;
@@ -46,8 +45,8 @@ void epoll_del_socket(int sock)
 	epoll_ctl(epoll, EPOLL_CTL_DEL, sock, &event);
 }
 
-void epoll_run(int listenfd)
-{
+void epoll_run(int listenfd) {
+
 	int i;
 	int ret;
 	int sock;

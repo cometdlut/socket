@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	result = create_socket(&sock);
 	assert(result == TRUE);
 
-	// bind socket
+	// bind socket, ip is 127.0.0.1, port is 0x1234 now
 
 	ip = (127 << 24) | 0x1;
 	port = 0x1234;
