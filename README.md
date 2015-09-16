@@ -30,6 +30,7 @@
 	timer.c  -- about timer function
 	config.c -- read data from config file
 	handle.c -- interface for user
+	demo.c   -- simple entry for whole project
 
 
 ## introduction to folders
