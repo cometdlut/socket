@@ -32,6 +32,7 @@ typedef struct _SOCK_HANDLE {
 void init_handle();
 void register_callback_func(func, func, func);
 void process_message(int, int);
+SOCK_HANDLE* find_handle(int sock);
 
 #endif
 

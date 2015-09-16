@@ -1,17 +1,18 @@
 
 #include "type.h"
 #include "buf.h"
+#include "handle.h"
 
 #define HASH_SEND_SOCK_NUM 10
 
-static SEND_SOCK g_send_sock[HASH_SEND_SOCK_NUM];
+static ListNode g_send_sock[HASH_SEND_SOCK_NUM];
 
 // init send sock
 
 void init_send_sock(SEND_SOCK* p_send, int sock) {
 	
-	init_node(&p_sock-> node);
-	init_node(&p_sock-> head);
+	init_node(&p_send-> node);
+	init_node(&p_send-> head);
 	
 	p_send-> sock = sock;
 	
@@ -92,7 +93,7 @@ void add_send_buf(int sock, SEND_BUF* p_buf) {
 
 // delete send buffer
 
-static void delete_send_buf(SEND_BUF* p_buf) {
+void delete_send_buf(SEND_BUF* p_buf) {
 	
 	delete_node(&p_buf-> node);
 	
@@ -110,7 +111,7 @@ SEND_BUF* get_send_buf(int sock) {
 	p_send = find_send_sock(sock);
 	if(NULL == p_send) {
 		
-		return 0x0;
+		return (SEND_BUF*)0x0;
 	}
 	
 	// get node first
@@ -118,7 +119,7 @@ SEND_BUF* get_send_buf(int sock) {
 	p_node = p_send->head.next;
 	if(p_node == &p_send->head) {
 		
-		return 0x0;
+		return (SEND_BUF*)0x0;
 	}
 	
 	return (SEND_BUF*) p_node;
@@ -151,9 +152,9 @@ STATUS add_buf_to_sock(int sock, RCV_BUF* p_rcv) {
 
 }
 
-// delete buf from socket
+// get buf from socket
 
-STATUS delete_buf_from_sock(int sock, s8** buf, u32* len) {
+STATUS get_rcv_buf(int sock, s8** buf, u32* len) {
 
 	SOCK_HANDLE* p_hand;
 	RCV_BUF* p_rcv;

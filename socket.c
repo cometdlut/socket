@@ -10,6 +10,7 @@
 #include "type.h"
 #include "log.h"
 #include "handle.h"
+#include "buf.h"
 
 // create socket
 

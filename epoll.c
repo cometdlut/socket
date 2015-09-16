@@ -4,10 +4,12 @@
 #include <sys/epoll.h>
 #include <fcntl.h>
 #include <string.h>
+#include <assert.h>
 
 #include "type.h"
 #include "socket.h"
 #include "handle.h"
+#include "buf.h"
 
 #define MAX_EVENT_NUM 1024
 

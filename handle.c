@@ -42,7 +42,6 @@ static void init_handle_struct(SOCK_HANDLE* p_hand, int sock) {
 
 	init_node(&p_hand->node);
 	init_node(&p_hand->read);
-	init_node(&p_hand->write);
 
 	p_hand-> sock = sock;
 	p_hand-> onConnect = g_onConnect;
@@ -54,7 +53,7 @@ static void init_handle_struct(SOCK_HANDLE* p_hand, int sock) {
 
 static void register_sock(SOCK_HANDLE* p_hand) {
 
-	add_node(&g_handle[p_hand-> sock % HASH_NUM], &p_hand->node);
+	add_node(&g_handle[p_hand-> sock % HANDLE_HASH_NUM], &p_hand->node);
 }
 
 void register_callback_func(func onConnect, func onClose, func onRecv) {
@@ -73,13 +72,13 @@ static void remove_sock(SOCK_HANDLE* p_hand) {
 
 // find sock
 
-static SOCK_HANDLE* find_handle(int sock) {
+SOCK_HANDLE* find_handle(int sock) {
 
 	SOCK_HANDLE* p_hand;
 	ListNode* p_node;
 	int num;
 
-	num = sock % HASH_NUM;
+	num = sock % HANDLE_HASH_NUM;
 	p_node = g_handle[num].next;
 
 	for(; p_node != &g_handle[num]; p_node = p_node-> next){
@@ -91,7 +90,7 @@ static SOCK_HANDLE* find_handle(int sock) {
 		}
 	}
 
-	return 0x0;
+	return (SOCK_HANDLE*)0x0;
 }
 
 // process sock message from epoll
