@@ -16,7 +16,7 @@ void init_timer() {
 
 // init timer struct
 
-void init_timer_struct(timer* p_tm, int gap, void(*func)(void*), void* param) {
+void init_timer_struct(Timer* p_tm, int gap, void(*func)(void*), void* param) {
 
 
 	// if timer == 0 or param not valid,
@@ -37,15 +37,15 @@ void init_timer_struct(timer* p_tm, int gap, void(*func)(void*), void* param) {
 
 // register timer module
 
-void add_timer(timer* p_cur) {
+void add_timer(Timer* p_cur) {
 
 	ListNode* p_node;
-	timer* p_tm;
+	Timer* p_tm;
 
 	p_node = g_timer_head.next;
 	for(; p_node != &g_timer_head; p_node = p_node->next) {
 
-		p_tm = (timer*) (p_node);
+		p_tm = (Timer*) (p_node);
 		if(p_tm-> tick > p_cur-> tick){
 			break;
 		}
@@ -56,7 +56,7 @@ void add_timer(timer* p_cur) {
 
 // delete timer module
 
-void delete_timer(timer* p_tm) {
+void delete_timer(Timer* p_tm) {
 
 	delete_node(&p_tm->node);
 }
@@ -65,7 +65,7 @@ void delete_timer(timer* p_tm) {
 
 void update_timer() {
 
-	timer* p_tm;
+	Timer* p_tm;
 	ListNode* p_prev;
 	ListNode* p_node;
 
@@ -78,7 +78,7 @@ void update_timer() {
 			break;
 		}
 
-		p_tm = (timer*)(p_node);
+		p_tm = (Timer*)(p_node);
 		if(p_tm->tick > g_tick) {
 			break;
 		}

@@ -6,22 +6,22 @@
 
 // define struct
 
-typedef struct _timer {
+typedef struct _Timer {
 
 	ListNode node;
 	u32 tick;
 	void(*func)(void*);
 	void* param;
 
-}timer;
+}Timer;
 
 // define function
 
 
 void init_timer();
-void init_timer_struct(timer* p_tm, int gap, void(*func)(void*), void* param);
-void add_timer(timer* p_tm);
-void delete_timer(timer* p_tm);
+void init_timer_struct(Timer* p_tm, int gap, void(*func)(void*), void* param);
+void add_timer(Timer* p_tm);
+void delete_timer(Timer* p_tm);
 void update_timer();
 
 #endif
