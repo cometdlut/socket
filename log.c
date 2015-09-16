@@ -10,24 +10,21 @@ static u32 debug_level;
 
 // init debug
 
-void init_debug()
-{
+void init_debug() {
 
 	debug_level = 0;
 }
 
 // set debug level
 
-void set_debug_level(u32 val)
-{
+void set_debug_level(u32 val) {
 
 	debug_level = val;
 }
 
 // only print error message
 
-void log_print_error(const char *fmt, ...)
-{
+void log_print_error(const char *fmt, ...) {
 
 	va_list args;
 	char buffer[1024];
@@ -45,8 +42,7 @@ void log_print_error(const char *fmt, ...)
 
 // print only warn message
 
-void log_print_warn(const char *fmt, ...)
-{
+void log_print_warn(const char *fmt, ...) {
 
 	va_list args;
 	char buffer[1024];
@@ -64,8 +60,7 @@ void log_print_warn(const char *fmt, ...)
 
 // print normal log message
 
-void log_print_msg(const char *fmt, ...)
-{
+void log_print_msg(const char *fmt, ...) {
 
 	va_list args;
 	char buffer[1024];
