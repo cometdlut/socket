@@ -28,7 +28,6 @@
 	sig.c    -- about signal
 	socket.c -- about basic socket operation
 	timer.c  -- about timer function
-	module.c -- about module function
 	config.c -- read data from config file
 	handle.c -- interface for user
 
