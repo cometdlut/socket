@@ -110,6 +110,8 @@ STATUS read_socket(int sock)
 	int len;
 	int ret;
 	int broken;
+	SEND_SOCK* p_send;
+	SEND_BUF* p_buf;
 
 	buf = (char *)malloc(1024);
 	if (!buf) {
@@ -141,6 +143,26 @@ STATUS read_socket(int sock)
 	if (broken) {
 
 		free(buf);
+		epoll_del_socket(sock);
+
+		// delete send buf
+
+		while(p_buf = get_send_buf(sock)) {
+
+			free(p_buf-> buf);
+			delete_send_buf(p_buf);
+
+			free(p_buf);
+		}
+
+		// delete send sock
+
+		p_send = find_send_sock(sock);
+		assert(p_send);
+
+		delete_send_sock(p_send);
+		free(p_send);
+
 		close(sock);
 
 		return FALSE;
@@ -162,18 +184,20 @@ STATUS write_socket(int sock)
 
 	char* buf;
 	int length;
-	SEND_BUF* p_send;
 
 	int len;
 	int broken;
 	int ret;
 
+	SEND_SOCK* p_send;
+	SEND_BUF* p_buf;
+
 	// check if we have send buffer already
 
-	p_send = get_send_buf(sock);
-	if(!p_send) {
+	p_buf = get_send_buf(sock);
+	if(!p_buf) {
 
-		return FALSE;
+		return TRUE;
 	}
 
 	// initialise temp variable
@@ -181,8 +205,8 @@ STATUS write_socket(int sock)
 	ret = 0;
 	broken = 0;
 
-	buf = p_send-> buf + p_send-> start;
-	len = p_send->len - p_send-> start;
+	buf = p_buf-> buf + p_buf-> start;
+	len = p_buf->len - p_buf-> start;
 
 	while (1) {
 
@@ -190,13 +214,13 @@ STATUS write_socket(int sock)
 
 		if(ret == len ) {
 
-			free(p_send-> buf);
-			delete_send_buf(p_send);
+			free(p_buf-> buf);
+			delete_send_buf(p_buf);
 
-			p_send = get_send_buf(sock);
-			if(!p_send) {
+			p_buf = get_send_buf(sock);
+			if(!p_buf) {
 
-				return FALSE;
+				return TRUE;
 			}
 		}
 
@@ -221,10 +245,32 @@ STATUS write_socket(int sock)
 
 	if (broken) {
 
+		epoll_del_socket(sock);
+
+		// delete send buf
+
+		while(p_buf = get_send_buf(sock)) {
+
+			free(p_buf-> buf);
+			delete_send_buf(p_buf);
+
+			free(p_buf);
+		}
+
+		// delete send sock
+
+		p_send = find_send_sock(sock);
+		assert(p_send);
+
+		delete_send_sock(p_send);
+		free(p_send);
+
+		close(sock);
+
 		return FALSE;
 	}
 
 
-	p_send->start += ret;
+	p_buf->start += ret;
 	return TRUE;
 }

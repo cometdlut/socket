@@ -29,6 +29,8 @@ typedef struct _SEND_SOCK{
 
 SEND_BUF* get_send_buf(int sock);
 STATUS get_rcv_buf(int sock, s8** buf, u32* len);
+SEND_SOCK* find_send_sock(int sock);
+SEND_BUF* get_send_buf(int sock);
 
 #endif
 
