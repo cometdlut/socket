@@ -39,6 +39,11 @@ int main(int argc, char *argv[])
 	result = bind_socket(sock, ip, port);
 	assert(result == TRUE);
 
+	// listen socket
+
+	result = listen_socket(sock);
+	assert(result == TRUE);
+
 	// add socket to epoll
 
 	epoll_add_socket(sock);

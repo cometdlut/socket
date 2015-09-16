@@ -53,7 +53,7 @@ void epoll_run(int listenfd) {
 	int i;
 	int size;
 	int sock;
-	u32 client;
+	int client;
 	u32 ip;
 	u16 port;
 	SEND_SOCK* p_send;
