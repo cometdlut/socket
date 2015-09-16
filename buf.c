@@ -2,6 +2,7 @@
 #include "type.h"
 #include "buf.h"
 #include "handle.h"
+#include "log.h"
 
 #define HASH_SEND_SOCK_NUM 10
 
@@ -123,6 +124,63 @@ SEND_BUF* get_send_buf(int sock) {
 	}
 	
 	return (SEND_BUF*) p_node;
+}
+
+// dump all send sock
+
+void dump_all_send_sock() {
+
+	s32 i;
+	ListNode* p_node;
+	SEND_SOCK* p_send;
+
+	log_print_msg("Sock is as follows:\n");
+
+	for(i = 0; i < HASH_SEND_SOCK_NUM; i ++) {
+
+		p_node = g_send_sock[i].next;
+		if(p_node == &g_send_sock[i]) {
+
+			continue;
+		}
+
+		for(; p_node != &g_send_sock[i]; p_node = p_node-> next) {
+
+			p_send = (SEND_SOCK*)(p_node);
+			log_print_msg("    %d\n", p_send-> sock);
+		}
+	}
+}
+
+// dump send buf by sock
+
+void dump_send_buf(int sock) {
+
+	SEND_SOCK* p_sock;
+	SEND_BUF* p_buf;
+	ListNode* p_node;
+
+	p_sock = find_send_sock(sock);
+	if(!p_sock) {
+
+		return;
+	}
+
+	p_node = p_sock->head.next;
+	if(p_node == &p_sock-> head) {
+
+		return;
+	}
+
+	log_print_msg("Send buf is as follows:\n");
+	for(; p_node != &p_sock-> head; p_node = p_node-> next) {
+
+		p_buf = (SEND_BUF*)(p_node);
+
+		log_print_msg("    addr: 0x%x\n", p_buf->buf);
+		log_print_msg("    len: %d\n", p_buf->len);
+		log_print_msg("    start: %d\n", p_buf->start);
+	}
 }
 
 
