@@ -101,6 +101,33 @@ void forward_sock_buffer(int sock, char* buf, int len) {
 	add_buf_to_sock(sock, p_rcv);
 }
 
+// remove socket
+
+void remove_socket(int sock) {
+
+	epoll_del_socket(sock);
+
+	// delete send buf
+
+	while(p_buf = get_send_buf(sock)) {
+
+		free(p_buf-> buf);
+		delete_send_buf(p_buf);
+
+		free(p_buf);
+	}
+
+	// delete send sock
+
+	p_send = find_send_sock(sock);
+	assert(p_send);
+
+	delete_send_sock(p_send);
+	free(p_send);
+
+	close(sock);
+}
+
 // read data
 
 STATUS read_socket(int sock)
@@ -143,27 +170,7 @@ STATUS read_socket(int sock)
 	if (broken) {
 
 		free(buf);
-		epoll_del_socket(sock);
-
-		// delete send buf
-
-		while(p_buf = get_send_buf(sock)) {
-
-			free(p_buf-> buf);
-			delete_send_buf(p_buf);
-
-			free(p_buf);
-		}
-
-		// delete send sock
-
-		p_send = find_send_sock(sock);
-		assert(p_send);
-
-		delete_send_sock(p_send);
-		free(p_send);
-
-		close(sock);
+		remove_socket(sock);
 
 		return FALSE;
 	}
@@ -245,28 +252,7 @@ STATUS write_socket(int sock)
 
 	if (broken) {
 
-		epoll_del_socket(sock);
-
-		// delete send buf
-
-		while(p_buf = get_send_buf(sock)) {
-
-			free(p_buf-> buf);
-			delete_send_buf(p_buf);
-
-			free(p_buf);
-		}
-
-		// delete send sock
-
-		p_send = find_send_sock(sock);
-		assert(p_send);
-
-		delete_send_sock(p_send);
-		free(p_send);
-
-		close(sock);
-
+		remove_socket(sock);
 		return FALSE;
 	}
 
