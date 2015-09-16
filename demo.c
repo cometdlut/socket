@@ -4,9 +4,7 @@
 #include <assert.h>
 
 #include "type.h"
-#include "epoll.h"
 #include "socket.h"
-#include "sig.h"
 #include "handle.h"
 
 // global variable
