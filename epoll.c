@@ -107,14 +107,20 @@ void epoll_run(int listenfd) {
 
 			else if(events[i].events & EPOLLIN) {
 
-				read_socket(sock);
+				if(TRUE != read_socket(sock)) {
+
+					process_message(SOCK_CLOSE, sock);
+				}
 			}
 
 			// send data
 
 			else if(events[i].events & EPOLLOUT) {
 
-				write_socket(sock);
+				if(TRUE != write_socket(sock)) {
+
+					process_message(SOCK_CLOSE, sock);
+				}
 			}
 		}
 	}

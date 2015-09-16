@@ -143,7 +143,6 @@ STATUS read_socket(int sock)
 		free(buf);
 		close(sock);
 
-		process_message(SOCK_CLOSE, sock);
 		return FALSE;
 	}
 
@@ -222,7 +221,6 @@ STATUS write_socket(int sock)
 
 	if (broken) {
 
-		process_message(SOCK_CLOSE, sock);
 		return FALSE;
 	}
 
