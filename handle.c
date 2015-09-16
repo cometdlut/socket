@@ -131,9 +131,9 @@ void process_message(int type, int sock) {
 			}
 
 
-			// remove all send buffer data
+			// remove all rcv buffer data
 
-			while(TRUE == get_send_buf(p_hand-> sock, &p_buf, &len)) {
+			while(TRUE == get_rcv_buf(p_hand-> sock, &p_buf, &len)) {
 
 				free(p_buf);
 			}

@@ -151,7 +151,7 @@ STATUS read_socket(int sock)
 		return TRUE;
 	}
 
-	forward_sock_buffer(sock, buf, len);
+	forward_sock_buffer(sock, buf, ret);
 	return TRUE;
 }
 
