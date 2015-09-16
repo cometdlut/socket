@@ -11,32 +11,23 @@
 #include "log.h"
 #include "handle.h"
 #include "buf.h"
+#include "epoll.h"
 
 // create socket
 
-STATUS create_socket(int *sock)
+STATUS create_socket(int *fd, s8* ip, u16 port)
 {
 
-	int fd;
+	int sock;
+	struct sockaddr_in server_addr;
+	int opt;
 
-	fd = socket(AF_INET, SOCK_STREAM, 0);
-	if (fd < 0) {
+	sock = socket(AF_INET, SOCK_STREAM, 0);
+	if (sock < 0) {
 
 		log_print_error("Failed to create socket!\n");
 		return FALSE;
 	}
-
-	*sock = fd;
-	return TRUE;
-}
-
-// bind socket
-
-STATUS bind_socket(int sock, s8* ip, u16 port)
-{
-
-	struct sockaddr_in server_addr;
-	int opt;
 
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_addr.s_addr = inet_addr(ip);
@@ -49,19 +40,14 @@ STATUS bind_socket(int sock, s8* ip, u16 port)
 		return FALSE;
 	}
 
-	return TRUE;
-}
-
-// listen socket
-
-STATUS listen_socket(int sock)
-{
-
 	if (listen(sock, 5)) {
 
 		log_print_error("Failed to listen socket!\n");
 		return FALSE;
 	}
+
+	epoll_add_socket(sock);
+	*fd = sock;
 
 	return TRUE;
 
