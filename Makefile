@@ -3,7 +3,7 @@
 
 CC=gcc
 RM=rm
-OBJS= demo.o handle.o cloud.o epoll.o buf.o list.o log.o pipe.o select.o sig.o socket.o timer.o
+OBJS= demo.o handle.o cloud.o epoll.o buf.o list.o log.o pipe.o sig.o socket.o timer.o
 
 all: cloud
 
