@@ -38,7 +38,7 @@ void log_print_error(const char *fmt, ...)
 		vsprintf(buffer, fmt, args);
 		va_end(args);
 
-		printf("%s", buffer);
+		printf("%s\n", buffer);
 	}
 
 }
@@ -57,7 +57,7 @@ void log_print_warn(const char *fmt, ...)
 		vsprintf(buffer, fmt, args);
 		va_end(args);
 
-		printf("%s", buffer);
+		printf("%s\n", buffer);
 	}
 
 }
@@ -76,6 +76,6 @@ void log_print_msg(const char *fmt, ...)
 		vsprintf(buffer, fmt, args);
 		va_end(args);
 
-		printf("%s", buffer);
+		printf("%s\n", buffer);
 	}
 }
