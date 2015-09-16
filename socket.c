@@ -140,7 +140,7 @@ STATUS read_socket(int sock)
 	SEND_SOCK* p_send;
 	SEND_BUF* p_buf;
 
-	buf = (char *)malloc(1024);
+	buf = (char *)malloc(READ_BUF_SIZE);
 	if (!buf) {
 		return FALSE;
 	}
@@ -151,7 +151,24 @@ STATUS read_socket(int sock)
 
 	while (1) {
 
-		len = read(sock, buf + ret, 1024 - ret);
+		// check if buffer is full already
+
+		if(ret == READ_BUF_SIZE) {
+			forward_sock_buffer(sock, buf, ret);
+
+			buf = (char *)malloc(READ_BUF_SIZE);
+			if (!buf) {
+
+				assert(0);
+				return FALSE;
+			}
+
+			ret = 0;
+		}
+
+		// read data from socket
+
+		len = read(sock, buf + ret, READ_BUF_SIZE - ret);
 		if (len == -1) {
 			if (errno == EINTR) {
 				continue;
