@@ -48,6 +48,15 @@ void epoll_del_socket(int sock) {
 	epoll_ctl(epoll, EPOLL_CTL_DEL, sock, &event);
 }
 
+void epoll_mod_socket(int sock) {
+
+	struct epoll_event event;
+
+	event.data.fd = sock;
+	event.events = EPOLLIN | EPOLLOUT;
+	epoll_ctl(epoll, EPOLL_CTL_MOD, sock, &event);
+}
+
 void epoll_run(int listenfd) {
 
 	int i;

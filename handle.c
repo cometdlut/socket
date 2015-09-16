@@ -4,6 +4,7 @@
 #include "type.h"
 #include "handle.h"
 #include "assert.h"
+#include "buf.h"
 
 // define global variable
 
@@ -148,4 +149,29 @@ void process_message(int type, int sock) {
 
 }
 
+// send buf data
+
+STATUS send_buf(SOCK_HANDLE* p_hand, s8* buf, u32 len) {
+
+	SEND_BUF* p_buf;
+
+	// add send buf
+
+	p_buf = (SEND_BUF*) malloc(sizeof(SEND_BUF));
+	if(!buf) {
+
+		assert(0);
+		return FALSE;
+	}
+
+	init_send_buf(p_buf, buf, len);
+	add_send_buf(p_hand-> sock, p_buf);
+
+	// modify event
+
+	epoll_mod_socket(p_hand-> sock);
+
+	return TRUE;
+
+}
 
