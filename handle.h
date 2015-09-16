@@ -6,9 +6,10 @@
 
 // define basic struct
 
-typedef void(*func)(void*);
+typedef struct _SOCK_HANDLE SOCK_HANDLE;
+typedef void(*func)(SOCK_HANDLE*);
 
-typedef struct _SOCK_HANDLE {
+struct _SOCK_HANDLE {
 
 	ListNode node;
 	ListNode read;
@@ -18,9 +19,10 @@ typedef struct _SOCK_HANDLE {
 	func onClose;
 	func onRecv;
 
-}SOCK_HANDLE;
+};
 
 // message type
+
 
 #define NEW_SOCK   0x1
 #define SOCK_CLOSE 0x2

@@ -46,12 +46,13 @@ int main(int argc, char *argv[])
 	s8* ip;
 	u16 port;
 
-	// init all module
+	// init cloud
 
-	epoll_init();
-	sig_init();
-	init_debug();
+	cloud_init();
 
+	// register call back
+
+	register_callback_func(is_connected, is_close, is_read);
 
 	// new socket
 
@@ -61,13 +62,9 @@ int main(int argc, char *argv[])
 	result = create_socket(&sock, ip, port);
 	assert(result == TRUE);
 
-	// dead loop run
+	//  run cloud
 
-	epoll_run(sock);
-
-	// return from while(1) procedure
-
-	close(sock);
+	cloud_run(sock);
 
 	return 0;
 }
