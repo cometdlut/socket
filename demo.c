@@ -7,6 +7,34 @@
 #include "epoll.h"
 #include "socket.h"
 #include "sig.h"
+#include "handle.h"
+
+// global variable
+
+static int g_connect = 0;
+static int g_close = 0;
+static int g_read = 0;
+
+// on connect
+
+void is_connected(SOCK_HANDLE* p_hand) {
+
+	g_connect ++;
+}
+
+// on close
+
+void is_close(SOCK_HANDLE* p_hand) {
+
+	g_close ++;
+}
+
+// on read
+
+void is_read(SOCK_HANDLE* p_hand) {
+
+	g_read ++;
+}
 
 // entry of executive file
 
