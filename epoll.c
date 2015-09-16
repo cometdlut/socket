@@ -103,6 +103,14 @@ void epoll_run(int listenfd) {
 				process_message(NEW_SOCK, client);
 			}
 
+			// check if socket close already
+
+			else if(events[i].events & EPOLLRDHUP) {
+
+				remove_socket(sock);
+				process_message(SOCK_CLOSE, sock);
+			}
+
 			// read data
 
 			else if(events[i].events & EPOLLIN) {
