@@ -32,14 +32,14 @@ STATUS create_socket(int *sock)
 
 // bind socket
 
-STATUS bind_socket(int sock, u32 ip, u16 port)
+STATUS bind_socket(int sock, s8* ip, u16 port)
 {
 
 	struct sockaddr_in server_addr;
 	int opt;
 
 	server_addr.sin_family = AF_INET;
-	server_addr.sin_addr.s_addr = ip;
+	server_addr.sin_addr.s_addr = inet_addr(ip);
 	server_addr.sin_port = port;
 
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));

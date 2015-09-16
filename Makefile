@@ -14,5 +14,5 @@ clean:
 	$(RM) -rf *.o cloud
 		
 %.o: %.c
-	$(CC) -c $<
+	$(CC) -c -g $<
 

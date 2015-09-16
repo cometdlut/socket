@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
 	STATUS result;
 	int sock;
-	u32 ip;
+	s8* ip;
 	u16 port;
 
 	// init all module
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 
 	// bind socket, ip is 127.0.0.1, port is 0x1234 now
 
-	ip = (127 << 24) | 0x1;
+	ip = "127.0.0.1";
 	port = 0x1234;
 	result = bind_socket(sock, ip, port);
 	assert(result == TRUE);
