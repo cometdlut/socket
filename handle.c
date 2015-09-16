@@ -99,6 +99,8 @@ SOCK_HANDLE* find_handle(int sock) {
 void process_message(int type, int sock) {
 
 	SOCK_HANDLE* p_hand;
+	s8* p_buf;
+	u32 len;
 
 	switch(type) {
 
@@ -126,6 +128,14 @@ void process_message(int type, int sock) {
 			if(p_hand) {
 
 				p_hand->onClose(p_hand);
+			}
+
+
+			// remove all send buffer data
+
+			while(TRUE == get_send_buf(p_hand-> sock, &p_buf, &len)) {
+
+				free(p_buf);
 			}
 
 			remove_sock(p_hand);

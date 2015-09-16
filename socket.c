@@ -86,9 +86,18 @@ STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port)
 
 // forward message
 
-void forward_sock_buffer(int sock, char* buf, int length) {
+void forward_sock_buffer(int sock, char* buf, int len) {
 
-	return;
+	RCV_BUF* p_rcv;
+
+	p_rcv = (RCV_BUF*) malloc(sizeof(RCV_BUF));
+	if(p_rcv) {
+
+		assert(0);
+	}
+
+	init_rcv_buf(p_rcv, buf, len);
+	add_buf_to_sock(sock, p_rcv);
 }
 
 // read data
