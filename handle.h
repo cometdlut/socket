@@ -9,6 +9,15 @@
 typedef struct _SOCK_HANDLE SOCK_HANDLE;
 typedef void(*func)(SOCK_HANDLE*);
 
+typedef struct _RCV_BUF {
+
+	ListNode node;
+	s8* buf;
+	u32 len;
+
+}RCV_BUF;
+
+
 struct _SOCK_HANDLE {
 
 	ListNode node;

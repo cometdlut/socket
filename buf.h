@@ -6,13 +6,6 @@
 
 // define structure
 
-typedef struct _RCV_BUF {
-
-	ListNode node;
-	s8* buf;
-	u32 len;
-
-}RCV_BUF;
 
 typedef struct _SEND_BUF {
 	
