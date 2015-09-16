@@ -13,6 +13,7 @@
 #include "handle.h"
 #include "buf.h"
 #include "epoll.h"
+#include "socket.h"
 
 // create socket
 
@@ -104,6 +105,9 @@ void forward_sock_buffer(int sock, char* buf, int len) {
 // remove socket
 
 void remove_socket(int sock) {
+
+	SEND_BUF* p_buf;
+	SEND_SOCK* p_send;
 
 	epoll_del_socket(sock);
 
@@ -207,8 +211,6 @@ STATUS write_socket(int sock)
 {
 
 	char* buf;
-	int length;
-
 	int len;
 	int broken;
 	int ret;
@@ -250,7 +252,7 @@ STATUS write_socket(int sock)
 
 		// begin to send data using socket api
 
-		len = write(sock, buf + ret, length - ret);
+		len = write(sock, buf + ret, len - ret);
 		if (len == -1) {
 			if (errno == EINTR) {
 				continue;
