@@ -36,8 +36,7 @@ void is_read(SOCK_HANDLE* p_hand) {
 
 // entry of executive file
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 
 	STATUS result;
 	int sock;

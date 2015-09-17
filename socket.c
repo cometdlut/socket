@@ -17,8 +17,7 @@
 
 // create socket
 
-STATUS create_socket(int *fd, s8* ip, u16 port)
-{
+STATUS create_socket(int *fd, s8* ip, u16 port) {
 
 	int sock;
 	struct sockaddr_in server_addr;
@@ -57,8 +56,7 @@ STATUS create_socket(int *fd, s8* ip, u16 port)
 
 // accept socket
 
-STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port)
-{
+STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port) {
 
 	int fd;
 	struct sockaddr_in client_addr;
@@ -134,8 +132,7 @@ void remove_socket(int sock) {
 
 // read data
 
-STATUS read_socket(int sock)
-{
+STATUS read_socket(int sock) {
 
 	char *buf;
 	int len;
@@ -207,8 +204,7 @@ STATUS read_socket(int sock)
 
 // write data
 
-STATUS write_socket(int sock)
-{
+STATUS write_socket(int sock) {
 
 	char* buf;
 	int len;

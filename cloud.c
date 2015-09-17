@@ -1,8 +1,8 @@
 
 #include "cloud.h"
 
-void cloud_init()
-{
+void cloud_init() {
+
 	// init all module
 
 	epoll_init();
@@ -13,8 +13,8 @@ void cloud_init()
 
 }
 
-void cloud_run(int sock)
-{
+void cloud_run(int sock) {
+
 	// dead loop run
 
 	epoll_run(sock);
