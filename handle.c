@@ -257,7 +257,7 @@ void dump_all_recv_sock() {
 	for(i = 0; i < HANDLE_HASH_NUM; i ++) {
 
 		p_node = g_handle[i].next;
-		if(p_node != &g_hand[i]) {
+		if(p_node != &g_handle[i]) {
 
 			continue;
 		}
@@ -282,13 +282,14 @@ void dump_rcv_buf(int sock) {
 	p_hand = find_handle(sock);
 	if(!p_hand) {
 
-		continue;
+		log_print_msg("    No sock.\n");
+		return;
 	}
 
 	p_node = p_hand->read.next;
 	if(p_node == &p_hand->read) {
 
-		log_print_msg("    None\n");
+		log_print_msg("    No rcv buf.\n");
 		return;
 	}
 
