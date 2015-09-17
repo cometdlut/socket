@@ -36,22 +36,35 @@ void init_timer() {
 
 void init_timer_struct(Timer* p_tm, int gap, void(*func)(void*), void* param) {
 
-
-	// if timer == 0 or param not valid,
-	// just return from add_timer function
-
-	if(!p_tm ||  !gap || !func || !param) {
-
-		return;
-	}
-
 	init_node(&p_tm->node);
 	p_tm-> tick = g_tick + gap;
 	p_tm-> func = func;
 	p_tm-> param = param;
 }
 
+// create timer function
 
+STATUS create_timer(int gap, void(*func)(void*), void* param) {
+
+	Timer* p_tm;
+
+	// if timer == 0 or param not valid,
+	// just return from add_timer function
+
+	if(!gap || !func || !param) {
+
+		return FALSE;
+	}
+
+	p_tm = (Timer*) malloc(sizeof(Timer));
+	if(!p_tm) {
+
+		return FALSE;
+	}
+
+	init_timer_struct(p_tm, gap, func, param);
+	return TRUE;
+}
 
 // register timer module
 
