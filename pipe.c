@@ -7,6 +7,9 @@
 #include "type.h"
 #include "pipe.h"
 #include "log.h"
+#include "epoll.h"
+
+#define epoll_add_fd(fd) epoll_add_socket(fd)
 
 static int pipe_ch[2];
 
@@ -18,6 +21,8 @@ void init_pipe() {
 
 		log_print_error("Failed to create pipe!\n");
 	}
+
+	epoll_add_fd(pipe_ch[1]);
 }
 
 // write pipe
@@ -32,6 +37,13 @@ void write_pipe(s8* buf, u32 len) {
 void read_pipe(s8* buf, u32 len) {
 
 	read(pipe_ch[1], buf, len);
+}
+
+// is pipe fd
+
+STATUS is_pipe_fd(int fd) {
+
+	return (fd == pipe_ch[1]) ? TRUE : FALSE;
 }
 
 // close pipe

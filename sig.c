@@ -6,16 +6,22 @@
 #include "type.h"
 #include "sig.h"
 #include "log.h"
+#include "pipe.h"
 
-void func(int no){
+static void stub(int no) {
 
-	log_print_msg("Got SIGINT message in signal file!\n ");
 	return;
+}
+
+static void process(int no){
+
+	write_pipe("ok", 2);
 }
 
 void sig_init() {
 
-	signal(SIGINT, func);
+	signal(SIGINT, stub);
+	signal(SIGINT, process);
 }
 
 

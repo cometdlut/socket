@@ -3,9 +3,13 @@
 
 void cloud_init() {
 
-	// init all module
+	// init all module, the procedure can not be reordered
 
 	epoll_init();
+
+	init_pipe();
+
+	init_timer();
 
 	sig_init();
 
@@ -21,6 +25,7 @@ void cloud_run(int sock) {
 
 	// return from while(1) procedure
 
+	close_pipe();
 	close(sock);
 
 }

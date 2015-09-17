@@ -62,9 +62,13 @@ void epoll_run(int listenfd) {
 	int size;
 	int sock;
 	int client;
+
 	u32 ip;
 	u16 port;
 	SEND_SOCK* p_send;
+
+	s8 buf[2];
+	u32 len;
 
 	while (1) {
 
@@ -100,6 +104,14 @@ void epoll_run(int listenfd) {
 				// send message for after use
 
 				process_message(NEW_SOCK, client);
+			}
+
+			// check if it is pipe
+
+			else if(is_pipe_fd(events[i].data.fd)) {
+
+				read_pipe(buf, 2);
+				update_timer();
 			}
 
 			// check if socket close already

@@ -1,17 +1,35 @@
 
+#include <stdio.h>
+#include <time.h>
+#include <sys/time.h>
+#include <stdlib.h>
+
 #include "type.h"
 #include "timer.h"
 #include "log.h"
 
 static int g_tick;
 static ListNode g_timer_head;
+static struct itimerval oldtv;
 
 // init timer module
 
 void init_timer() {
 
+	// init global
+
 	g_tick = 0;
 	init_node(&g_timer_head);
+
+	// init timer
+
+	struct itimerval itv;
+	itv.it_interval.tv_sec = 1;
+	itv.it_interval.tv_usec = 0;
+	itv.it_value.tv_sec = 1;
+	itv.it_value.tv_usec = 0;
+
+	setitimer(ITIMER_REAL, &itv, &oldtv);
 }
 
 // init timer struct
