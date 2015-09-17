@@ -5,10 +5,9 @@
 #include "handle.h"
 #include "assert.h"
 #include "buf.h"
+#include "define.h"
 
 // define global variable
-
-#define HANDLE_HASH_NUM 10
 
 static ListNode g_handle[HANDLE_HASH_NUM];
 

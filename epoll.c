@@ -10,8 +10,7 @@
 #include "socket.h"
 #include "handle.h"
 #include "buf.h"
-
-#define MAX_EVENT_NUM 1024
+#include "define.h"
 
 static int epoll;
 static struct epoll_event events[MAX_EVENT_NUM];

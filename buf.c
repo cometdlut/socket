@@ -3,8 +3,7 @@
 #include "buf.h"
 #include "handle.h"
 #include "log.h"
-
-#define HASH_SEND_SOCK_NUM 10
+#include "define.h"
 
 static ListNode g_send_sock[HASH_SEND_SOCK_NUM];
 

@@ -44,6 +44,7 @@ void init_handle();
 void register_callback_func(func, func, func);
 void process_message(int, int);
 SOCK_HANDLE* find_handle(int sock);
+STATUS get_rcv_buf(int sock, s8** buf, u32* len);
 
 #endif
 
