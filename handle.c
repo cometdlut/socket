@@ -244,5 +244,62 @@ STATUS get_rcv_buf(int sock, s8** buf, u32* len) {
 
 }
 
+// dump rcv sock
+
+void dump_all_recv_sock() {
+
+	SOCK_HANDLE* p_hand;
+	ListNode* p_node;
+	s32 i;
+
+	log_print_msg("All rcv sock is as follows:\n");
+
+	for(i = 0; i < HANDLE_HASH_NUM; i ++) {
+
+		p_node = g_handle[i].next;
+		if(p_node != &g_hand[i]) {
+
+			continue;
+		}
+
+		p_hand = (SOCK_HANDLE*) p_node;
+		log_print_msg("    %d\n", p_hand->sock);
+
+	}
+
+}
+
+// dump rcv buf by sock
+
+void dump_rcv_buf(int sock) {
+
+	SOCK_HANDLE* p_hand;
+	RCV_BUF* p_rcv;
+	ListNode* p_node;
+
+	log_print_msg("Rcv buf is as follows:\n");
+
+	p_hand = find_handle(sock);
+	if(!p_hand) {
+
+		continue;
+	}
+
+	p_node = p_hand->read.next;
+	if(p_node == &p_hand->read) {
+
+		log_print_msg("    None\n");
+		return;
+	}
+
+	for(; p_node != &p_hand->read; p_node = p_node-> next) {
+
+		p_rcv = (RCV_BUF*)(p_node);
+
+		log_print_msg("    addr:0x%x\n", p_rcv-> buf);
+		log_print_msg("    len:%d\n", p_rcv-> len);
+		log_print_msg("\n");
+	}
+}
 
 
