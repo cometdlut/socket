@@ -238,7 +238,7 @@ STATUS get_rcv_buf(int sock, s8** buf, u32* len) {
 	*len = p_rcv->len;
 
 	delete_node(p_node);
-	free(p_node);
+	free(p_rcv);
 
 	return TRUE;
 
