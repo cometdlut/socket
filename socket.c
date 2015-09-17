@@ -76,6 +76,8 @@ STATUS accept_socket(int sock, int *new_sock, u32 * ip, u16 * port) {
 		return FALSE;
 	}
 
+	epoll_add_socket(fd);
+
 	*new_sock = fd;
 	*ip = client_addr.sin_addr.s_addr;
 	*port = client_addr.sin_port;
