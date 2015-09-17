@@ -21,7 +21,7 @@ static void process(int no){
 void sig_init() {
 
 	signal(SIGINT, stub);
-	signal(SIGINT, process);
+	signal(SIGALRM, process);
 }
 
 
