@@ -17,7 +17,7 @@
 
 // create socket
 
-STATUS create_socket(int *fd, s8* ip, u16 port) {
+STATUS create_socket(int *fd, u16 port) {
 
 	int sock;
 	struct sockaddr_in server_addr;
@@ -31,8 +31,8 @@ STATUS create_socket(int *fd, s8* ip, u16 port) {
 	}
 
 	server_addr.sin_family = AF_INET;
-	server_addr.sin_addr.s_addr = inet_addr(ip);
-	server_addr.sin_port = port;
+	server_addr.sin_addr.s_addr = htons(INADDR_ANY);
+	server_addr.sin_port = htons(port);
 
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 	if (bind(sock, (struct sockaddr *)(&server_addr), sizeof(server_addr))) {

@@ -8,6 +8,8 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 
+// input 127.0.0.1 as address, 1234 as default port
+
 int main(int argc, char* argv[]) {
 
 	int sockfd;
@@ -15,7 +17,6 @@ int main(int argc, char* argv[]) {
 
 	char buf[100];
 	char* msg = "hello, world";
-	struct hostent* he;
 	struct sockaddr_in their_addr;
 	int i = 0;
 
@@ -25,8 +26,6 @@ int main(int argc, char* argv[]) {
 		exit(1);
 	}
 
-	he = gethostbyname(argv[1]);
-
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if(-1 == sockfd) {
 
@@ -35,8 +34,8 @@ int main(int argc, char* argv[]) {
 	}
 
 	their_addr.sin_family = AF_INET;
+	their_addr.sin_addr.s_addr = inet_addr(argv[1]);
 	their_addr.sin_port = htons(atoi(argv[2]));
-	their_addr.sin_addr = *((struct in_addr*)he->h_addr);
 	bzero(&their_addr.sin_zero, 8);
 
 	if(-1 == connect(sockfd, (struct sockaddr*)&their_addr, sizeof(struct sockaddr))){
