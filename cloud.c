@@ -15,7 +15,7 @@ void cloud_init() {
 
 	sig_init();
 
-
+	init_buffer();
 }
 
 void cloud_run(int sock) {

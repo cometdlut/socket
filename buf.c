@@ -7,6 +7,18 @@
 
 static ListNode g_send_sock[HASH_SEND_SOCK_NUM];
 
+// init buffer
+
+void init_buffer() {
+
+	int i;
+
+	for(i = 0; i < HASH_SEND_SOCK_NUM; i ++) {
+
+		init_node(&g_send_sock[i]);
+	}
+}
+
 // init send sock
 
 void init_send_sock(SEND_SOCK* p_send, int sock) {
