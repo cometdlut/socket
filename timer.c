@@ -18,12 +18,21 @@ static struct itimerval oldtv;
 void init_timer() {
 
 	pthread_t id;
+	struct itimerval itv;
 
 	// init global
 
 	g_tick = 0;
 	init_node(&g_timer_head);
 
+	// init timer
+
+	itv.it_interval.tv_sec = 1;
+	itv.it_interval.tv_usec = 0;
+	itv.it_value.tv_sec = 1;
+	itv.it_value.tv_usec = 0;
+
+	setitimer(ITIMER_REAL, &itv, &oldtv);
 }
 
 // init timer struct

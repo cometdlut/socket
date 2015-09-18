@@ -14,15 +14,9 @@ static void stub(int no) {
 	return;
 }
 
-static void* process(void* arg){
+static void process(int no) {
 
-	while(1) {
-
-		sleep(1);
-		write_pipe("ok", 2);
-	}
-
-	return (void*)0;
+	write_pipe("", 1);
 }
 
 void sig_init() {
@@ -31,7 +25,7 @@ void sig_init() {
 
 	signal(SIGINT, stub);
 
-	pthread_create(&id, NULL, process, NULL);
+	signal(SIGALRM, process);
 }
 
 

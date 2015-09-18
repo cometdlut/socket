@@ -3,13 +3,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <sys/socket.h>
 
 #include "type.h"
 #include "pipe.h"
 #include "log.h"
 #include "epoll.h"
-
-#define epoll_add_fd(fd) epoll_add_socket(fd)
 
 static int pipe_ch[2];
 
@@ -22,7 +21,8 @@ void init_pipe() {
 		log_print_error("Failed to create pipe!\n");
 	}
 
-	epoll_add_fd(pipe_ch[1]);
+	socketpair(PF_UNIX, SOCK_STREAM, 0, pipe_ch);
+	epoll_add_pipe(pipe_ch[1]);
 }
 
 // write pipe
