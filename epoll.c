@@ -19,6 +19,8 @@ static struct epoll_event events[MAX_EVENT_NUM];
 void epoll_init() {
 
 	epoll = epoll_create(5);
+
+	memset(events, 0, sizeof(events));
 }
 
 void epoll_add_pipe(int fd) {
