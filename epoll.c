@@ -73,7 +73,7 @@ void epoll_run(int listenfd) {
 
 	while (1) {
 
-		size = epoll_wait(epoll, events, MAX_EVENT_NUM - 1, -1);
+		size = epoll_wait(epoll, events, MAX_EVENT_NUM, -1);
 		if(size < 0) {
 
 			if(errno == EINTR) {
