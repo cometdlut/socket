@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	their_addr.sin_family = AF_INET;
-	their_addr.sin_port = htons(2323);
+	their_addr.sin_port = htons(atoi(argv[2]));
 	their_addr.sin_addr = *((struct in_addr*)he->h_addr);
 	bzero(&their_addr.sin_zero, 8);
 
