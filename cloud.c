@@ -5,6 +5,8 @@ void cloud_init() {
 
 	// init all module, the procedure can not be reordered
 
+	init_debug();
+
 	epoll_init();
 
 	init_pipe();
@@ -13,7 +15,6 @@ void cloud_init() {
 
 	sig_init();
 
-	init_debug();
 
 }
 
