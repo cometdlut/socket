@@ -35,8 +35,8 @@ void epoll_add_socket(int sock) {
 
 	//set non block mode
 
-	opt = fcntl(sock, F_GETFL);
-	fcntl(sock, opt | O_NONBLOCK);
+	opt = fcntl(sock, F_GETFL, 0);
+	fcntl(sock, F_SETFL, opt | O_NONBLOCK);
 
 }
 
