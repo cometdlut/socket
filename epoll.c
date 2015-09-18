@@ -4,6 +4,7 @@
 #include <sys/epoll.h>
 #include <fcntl.h>
 #include <string.h>
+#include <errno.h>
 #include <assert.h>
 
 #include "type.h"
@@ -74,6 +75,12 @@ void epoll_run(int listenfd) {
 
 		size = epoll_wait(epoll, events, MAX_EVENT_NUM - 1, -1);
 		if(size < 0) {
+
+			if(errno == EINTR) {
+
+				continue;
+			}
+
 			break;
 		}
 
