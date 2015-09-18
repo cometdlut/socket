@@ -52,6 +52,9 @@ void cloud_run(int sock) {
 	// return from while(1) procedure
 
 	close_pipe();
+
+	remove_all_timer();
+
 	close(sock);
 
 }
