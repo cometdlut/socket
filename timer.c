@@ -3,6 +3,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 #include "type.h"
 #include "timer.h"
@@ -16,20 +17,13 @@ static struct itimerval oldtv;
 
 void init_timer() {
 
+	pthread_t id;
+
 	// init global
 
 	g_tick = 0;
 	init_node(&g_timer_head);
 
-	// init timer
-
-	struct itimerval itv;
-	itv.it_interval.tv_sec = 1;
-	itv.it_interval.tv_usec = 0;
-	itv.it_value.tv_sec = 1;
-	itv.it_value.tv_usec = 0;
-
-	setitimer(ITIMER_REAL, &itv, &oldtv);
 }
 
 // init timer struct

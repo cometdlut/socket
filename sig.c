@@ -2,6 +2,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <pthread.h>
 
 #include "type.h"
 #include "sig.h"
@@ -13,15 +14,24 @@ static void stub(int no) {
 	return;
 }
 
-static void process(int no){
+static void* process(void* arg){
 
-	write_pipe("ok", 2);
+	while(1) {
+
+		sleep(1);
+		write_pipe("ok", 2);
+	}
+
+	return (void*)0;
 }
 
 void sig_init() {
 
+	pthread_t id;
+
 	signal(SIGINT, stub);
-	signal(SIGALRM, process);
+
+	pthread_create(&id, NULL, process, NULL);
 }
 
 
