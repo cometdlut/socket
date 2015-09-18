@@ -46,10 +46,7 @@ static void process(int no) {
 
 void sig_init() {
 
-	pthread_t id;
-
 	signal(SIGINT, stub);
-
 	signal(SIGALRM, process);
 }
 
