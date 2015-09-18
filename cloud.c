@@ -49,7 +49,9 @@ void cloud_run(int sock) {
 
 	epoll_run(sock);
 
-	// return from while(1) procedure
+	// socket lib should wait all socket byebye,
+	// and set total timer to alarm
+	// then it can remove its own resource, include receive buffer and send buffer
 
 	close_pipe();
 
