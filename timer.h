@@ -19,7 +19,7 @@ typedef struct _Timer {
 
 
 void init_timer();
-void init_timer_struct(Timer* p_tm, int gap, void(*func)(void*), void* param);
+Timer* create_timer(int gap, void(*func)(void*), void* param);
 void add_timer(Timer* p_tm);
 void delete_timer(Timer* p_tm);
 void update_timer();

@@ -37,7 +37,7 @@ void init_timer() {
 
 // init timer struct
 
-void init_timer_struct(Timer* p_tm, int gap, void(*func)(void*), void* param) {
+static void init_timer_struct(Timer* p_tm, int gap, void(*func)(void*), void* param) {
 
 	init_node(&p_tm->node);
 	p_tm-> tick = g_tick + gap;
@@ -47,7 +47,7 @@ void init_timer_struct(Timer* p_tm, int gap, void(*func)(void*), void* param) {
 
 // create timer function
 
-STATUS create_timer(int gap, void(*func)(void*), void* param) {
+Timer* create_timer(int gap, void(*func)(void*), void* param) {
 
 	Timer* p_tm;
 
@@ -56,17 +56,17 @@ STATUS create_timer(int gap, void(*func)(void*), void* param) {
 
 	if(!gap || !func || !param) {
 
-		return FALSE;
+		return 0x0;
 	}
 
 	p_tm = (Timer*) malloc(sizeof(Timer));
 	if(!p_tm) {
 
-		return FALSE;
+		return 0x0;
 	}
 
 	init_timer_struct(p_tm, gap, func, param);
-	return TRUE;
+	return p_tm;
 }
 
 // register timer module
