@@ -52,7 +52,7 @@ void epoll_add_pipe(int fd) {
 
 	int opt;
 
-	// add socket to epoll
+	// add pipe to epoll struct
 
 	struct epoll_event event;
 
@@ -60,7 +60,7 @@ void epoll_add_pipe(int fd) {
 	event.events = EPOLLIN | EPOLLET;
 	epoll_ctl(epoll, EPOLL_CTL_ADD, fd, &event);
 
-	//set non block mode
+	//set non block mode towards pipe
 
 	opt = fcntl(fd, F_GETFL, 0);
 	fcntl(fd, F_SETFL, opt | O_NONBLOCK);
@@ -160,7 +160,7 @@ void epoll_run(int listenfd) {
 				process_message(NEW_SOCK, client);
 			}
 
-			// check if it is pipe
+			// check if it is pipe handler
 
 			else if(TRUE == is_pipe_fd(events[i].data.fd)) {
 
