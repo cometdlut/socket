@@ -41,8 +41,12 @@ int main(int argc, char *argv[]) {
 
 	STATUS result;
 	int sock;
-	s8* ip;
-	u16 port;
+
+	if(argc < 2) {
+
+		printf("No port parameter. \n");
+		exit(1);
+	}
 
 	// init cloud
 
@@ -54,10 +58,7 @@ int main(int argc, char *argv[]) {
 
 	// new socket
 
-	ip = "127.0.0.1";
-	port = 0x1234;
-
-	result = create_socket(&sock, ip, port);
+	result = create_socket(&sock, atoi(argv[1]));
 	assert(result == TRUE);
 
 	//  run cloud

@@ -41,6 +41,12 @@ int main(int argc, char *argv[]) {
 	STATUS result;
 	int sock;
 
+	if(argc < 2) {
+
+		printf("No port parameter.\n");
+		exit(1);
+	}
+
 	// init cloud
 
 	cloud_init();

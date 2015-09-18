@@ -47,18 +47,20 @@ int main(int argc, char* argv[]) {
 	if(-1 == send(sockfd, msg, strlen(msg), 0)) {
 
 		printf("Failed to send. \n");
-		exit(1);
+		goto fail;
 	}
 
 	numbytes = recv(sockfd, buf, 100, 0);
 	if(-1 == numbytes) {
 
 		printf("Failed to receive. \n");
-		exit(1);
+		goto fail;
 	}
 
 	buf[numbytes] = '\0';
 	printf("%s\n", buf);
+
+fail:
 	close(sockfd);
 
 	return 0;
