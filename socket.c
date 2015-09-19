@@ -271,6 +271,10 @@ STATUS write_socket(int sock) {
 
 				return TRUE;
 			}
+
+			ret = 0;
+			buf = p_buf-> buf;
+			len = p_buf-> len;
 		}
 
 		// begin to send data using socket api
