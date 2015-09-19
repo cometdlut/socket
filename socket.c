@@ -237,6 +237,7 @@ STATUS write_socket(int sock) {
 	int len;
 	int broken;
 	int ret;
+	int total;
 
 	SEND_SOCK* p_send;
 	SEND_BUF* p_buf;
@@ -255,13 +256,13 @@ STATUS write_socket(int sock) {
 	broken = 0;
 
 	buf = p_buf-> buf + p_buf-> start;
-	len = p_buf->len - p_buf-> start;
+	total = p_buf->len - p_buf-> start;
 
 	while (1) {
 
 		// check if all data has been sent
 
-		if(ret == len ) {
+		if(ret == total ) {
 
 			free(p_buf-> buf);
 			delete_send_buf(p_buf);
@@ -274,7 +275,7 @@ STATUS write_socket(int sock) {
 
 			ret = 0;
 			buf = p_buf-> buf;
-			len = p_buf-> len;
+			total = p_buf-> len;
 		}
 
 		// begin to send data using socket api
