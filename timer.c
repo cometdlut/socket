@@ -156,6 +156,7 @@ void update_timer() {
 void remove_all_timer() {
 
 	ListNode* p_node;
+	ListNode* p_prev;
 	Timer* p_tm;
 
 	p_node = g_timer_head.next;
@@ -163,7 +164,10 @@ void remove_all_timer() {
 	while(p_node != &g_timer_head) {
 
 		p_tm = (Timer*) p_node;
+		p_prev = p_node;
 		p_node = p_node-> next;
+
+		delete_node(p_prev);
 		free(p_tm);
 	}
 
