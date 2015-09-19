@@ -140,6 +140,7 @@ void process_message(int type, int sock) {
 			init_handle_struct(p_hand, sock);
 			register_sock(p_hand);
 
+			assert(p_hand->onConnect);
 			p_hand->onConnect(p_hand);
 
 			break;
@@ -151,9 +152,9 @@ void process_message(int type, int sock) {
 			p_hand = find_handle(sock);
 			if(p_hand) {
 
+				assert(p_hand->onClose);
 				p_hand->onClose(p_hand);
 			}
-
 
 			// remove all rcv buffer data
 
@@ -172,6 +173,7 @@ void process_message(int type, int sock) {
 			p_hand = find_handle(sock);
 			if(p_hand) {
 
+				assert(p_hand->onRecv);
 				p_hand->onRecv(p_hand);
 			}
 
