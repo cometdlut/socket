@@ -237,6 +237,7 @@ STATUS add_buf_to_sock(int sock, RCV_BUF* p_rcv) {
 
 	add_node(&p_hand->read, &p_rcv-> node);
 
+	return TRUE;
 }
 
 // get buf from socket
