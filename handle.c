@@ -283,7 +283,7 @@ void dump_all_recv_sock() {
 	for(i = 0; i < HANDLE_HASH_NUM; i ++) {
 
 		p_node = g_handle[i].next;
-		if(p_node != &g_handle[i]) {
+		if(p_node == &g_handle[i]) {
 
 			continue;
 		}
