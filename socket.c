@@ -118,7 +118,7 @@ void forward_sock_buffer(int sock, char* buf, int len) {
 	RCV_BUF* p_rcv;
 
 	p_rcv = (RCV_BUF*) malloc(sizeof(RCV_BUF));
-	if(p_rcv) {
+	if(!p_rcv) {
 
 		assert(0);
 	}
