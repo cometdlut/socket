@@ -42,7 +42,6 @@ static struct itimerval oldtv;
 
 void init_timer() {
 
-	pthread_t id;
 	struct itimerval itv;
 
 	// init global
