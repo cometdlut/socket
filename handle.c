@@ -288,9 +288,11 @@ void dump_all_recv_sock() {
 			continue;
 		}
 
-		p_hand = (SOCK_HANDLE*) p_node;
-		log_print_msg("    %d\n", p_hand->sock);
+		for(; p_node != &g_handle[i]; p_node = p_node-> next) {
 
+			p_hand = (SOCK_HANDLE*) p_node;
+			log_print_msg("    %d\n", p_hand->sock);
+		}
 	}
 
 }
