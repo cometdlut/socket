@@ -162,7 +162,7 @@ void epoll_run(int listenfd) {
 
 			// check if it is pipe handler
 
-			else if(TRUE == is_pipe_fd(events[i].data.fd)) {
+			else if(TRUE == is_pipe_fd(sock)) {
 
 				read_pipe(buf, 1);
 				update_timer();
