@@ -40,21 +40,21 @@ static int g_read = 0;
 
 // on connect
 
-void is_connected(SOCK_HANDLE* p_hand) {
+void is_connected(RCV_SOCK* p_hand) {
 
 	g_connect ++;
 }
 
 // on close
 
-void is_close(SOCK_HANDLE* p_hand) {
+void is_close(RCV_SOCK* p_hand) {
 
 	g_close ++;
 }
 
 // on read
 
-void is_read(SOCK_HANDLE* p_hand) {
+void is_read(RCV_SOCK* p_hand) {
 
 	g_read ++;
 }

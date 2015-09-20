@@ -63,7 +63,7 @@ void init_handle() {
 
 // init struct
 
-static void init_handle_struct(SOCK_HANDLE* p_hand, int sock) {
+static void init_handle_struct(RCV_SOCK* p_hand, int sock) {
 
 	init_node(&p_hand->node);
 	init_node(&p_hand->read);
@@ -76,7 +76,7 @@ static void init_handle_struct(SOCK_HANDLE* p_hand, int sock) {
 
 // register sock
 
-static void register_sock(SOCK_HANDLE* p_hand) {
+static void register_sock(RCV_SOCK* p_hand) {
 
 	add_node(&g_handle[p_hand-> sock % HANDLE_HASH_NUM], &p_hand->node);
 }
@@ -90,16 +90,16 @@ void register_callback_func(func onConnect, func onClose, func onRecv) {
 
 // remove sock
 
-static void remove_sock(SOCK_HANDLE* p_hand) {
+static void remove_sock(RCV_SOCK* p_hand) {
 
 	delete_node(&p_hand->node);
 }
 
 // find sock
 
-SOCK_HANDLE* find_handle(int sock) {
+RCV_SOCK* find_handle(int sock) {
 
-	SOCK_HANDLE* p_hand;
+	RCV_SOCK* p_hand;
 	ListNode* p_node;
 	int num;
 
@@ -108,21 +108,21 @@ SOCK_HANDLE* find_handle(int sock) {
 
 	for(; p_node != &g_handle[num]; p_node = p_node-> next){
 
-		p_hand = (SOCK_HANDLE*)(p_node);
+		p_hand = (RCV_SOCK*)(p_node);
 		if(p_hand-> sock == sock) {
 
 			return p_hand;
 		}
 	}
 
-	return (SOCK_HANDLE*)0x0;
+	return (RCV_SOCK*)0x0;
 }
 
 // process sock message from epoll
 
 void process_message(int type, int sock) {
 
-	SOCK_HANDLE* p_hand;
+	RCV_SOCK* p_hand;
 	s8* p_buf;
 	u32 len;
 
@@ -130,7 +130,7 @@ void process_message(int type, int sock) {
 
 		case NEW_SOCK:
 
-			p_hand = (SOCK_HANDLE*) malloc(sizeof(SOCK_HANDLE));
+			p_hand = (RCV_SOCK*) malloc(sizeof(RCV_SOCK));
 			if(!p_hand) {
 				assert(0);
 			}
@@ -188,7 +188,7 @@ void process_message(int type, int sock) {
 
 // send buf data
 
-STATUS send_buf(SOCK_HANDLE* p_hand, s8* buf, u32 len) {
+STATUS send_buf(RCV_SOCK* p_hand, s8* buf, u32 len) {
 
 	SEND_BUF* p_buf;
 
@@ -227,7 +227,7 @@ void init_rcv_buf(RCV_BUF* p_rcv, s8* buf, u32 len) {
 
 STATUS add_buf_to_sock(int sock, RCV_BUF* p_rcv) {
 
-	SOCK_HANDLE* p_hand;
+	RCV_SOCK* p_hand;
 
 	p_hand = find_handle(sock);
 	if(!p_hand){
@@ -244,7 +244,7 @@ STATUS add_buf_to_sock(int sock, RCV_BUF* p_rcv) {
 
 STATUS get_rcv_buf(int sock, s8** buf, u32* len) {
 
-	SOCK_HANDLE* p_hand;
+	RCV_SOCK* p_hand;
 	RCV_BUF* p_rcv;
 	ListNode* p_node;
 
@@ -275,7 +275,7 @@ STATUS get_rcv_buf(int sock, s8** buf, u32* len) {
 
 void dump_all_recv_sock() {
 
-	SOCK_HANDLE* p_hand;
+	RCV_SOCK* p_hand;
 	ListNode* p_node;
 	s32 i;
 
@@ -291,7 +291,7 @@ void dump_all_recv_sock() {
 
 		for(; p_node != &g_handle[i]; p_node = p_node-> next) {
 
-			p_hand = (SOCK_HANDLE*) p_node;
+			p_hand = (RCV_SOCK*) p_node;
 			log_print_msg("    %d\n", p_hand->sock);
 		}
 	}
@@ -302,7 +302,7 @@ void dump_all_recv_sock() {
 
 void dump_rcv_buf(int sock) {
 
-	SOCK_HANDLE* p_hand;
+	RCV_SOCK* p_hand;
 	RCV_BUF* p_rcv;
 	ListNode* p_node;
 

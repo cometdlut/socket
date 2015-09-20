@@ -6,8 +6,8 @@
 
 // define basic struct
 
-typedef struct _SOCK_HANDLE SOCK_HANDLE;
-typedef void(*func)(SOCK_HANDLE*);
+typedef struct _RCV_SOCK RCV_SOCK;
+typedef void(*func)(RCV_SOCK*);
 
 typedef struct _RCV_BUF {
 
@@ -18,7 +18,7 @@ typedef struct _RCV_BUF {
 }RCV_BUF;
 
 
-struct _SOCK_HANDLE {
+struct _RCV_SOCK {
 
 	ListNode node;
 	ListNode read;
@@ -43,7 +43,7 @@ struct _SOCK_HANDLE {
 void init_handle();
 void register_callback_func(func, func, func);
 void process_message(int, int);
-SOCK_HANDLE* find_handle(int sock);
+RCV_SOCK* find_handle(int sock);
 STATUS get_rcv_buf(int sock, s8** buf, u32* len);
 
 #endif
