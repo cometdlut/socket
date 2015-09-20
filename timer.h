@@ -9,6 +9,7 @@
 typedef struct _Timer {
 
 	ListNode node;
+	u32 gap;
 	u32 tick;
 	void(*func)(void*);
 	void* param;

@@ -64,9 +64,11 @@ void init_timer() {
 static void init_timer_struct(Timer* p_tm, int gap, void(*func)(void*), void* param) {
 
 	init_node(&p_tm->node);
-	p_tm-> tick = g_tick + gap;
+
+	p_tm-> tick = 0;
 	p_tm-> func = func;
 	p_tm-> param = param;
+	p_tm-> gap = gap;
 }
 
 // create timer function
@@ -99,6 +101,8 @@ void add_timer(Timer* p_cur) {
 
 	ListNode* p_node;
 	Timer* p_tm;
+
+	p_cur-> tick = g_tick + p_cur-> gap;
 
 	p_node = g_timer_head.next;
 	for(; p_node != &g_timer_head; p_node = p_node->next) {
