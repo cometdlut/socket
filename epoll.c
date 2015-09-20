@@ -48,6 +48,17 @@ void epoll_init() {
 	memset(events, 0, sizeof(events));
 }
 
+void epoll_add_stdio() {
+
+	struct epoll_event event;
+
+	// add stdio to epoll
+
+	event.data.fd = STDIN_FILENO;
+	event.events = EPOLLIN;
+	epoll_ctl(epoll, EPOLL_CTL_ADD, STDIN_FILENO, &event);
+}
+
 void epoll_add_pipe(int fd) {
 
 	int opt;
@@ -158,6 +169,13 @@ void epoll_run(int listenfd) {
 				// send message for after use
 
 				process_message(NEW_SOCK, client);
+			}
+
+			// check if it is stdio
+
+			else if(STDIN_FILENO == sock) {
+
+				io_get_input();
 			}
 
 			// check if it is pipe handler
