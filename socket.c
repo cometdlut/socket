@@ -220,7 +220,7 @@ STATUS read_socket(int sock) {
 		return FALSE;
 	}
 
-	if(!len) {
+	if(!ret) {
 		free(buf);
 		return TRUE;
 	}
