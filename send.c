@@ -25,8 +25,8 @@
  */
  
 #include "type.h"
-#include "buf.h"
-#include "handle.h"
+#include "send.h"
+#include "rcv.h"
 #include "log.h"
 #include "define.h"
 

@@ -35,8 +35,8 @@
 
 #include "type.h"
 #include "log.h"
-#include "handle.h"
-#include "buf.h"
+#include "rcv.h"
+#include "send.h"
 #include "epoll.h"
 #include "socket.h"
 

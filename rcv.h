@@ -1,6 +1,6 @@
 
-#ifndef _HANDLE_H
-#define _HANDLE_H
+#ifndef _RCV_H
+#define _RCV_H
 
 #include "list.h"
 

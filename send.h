@@ -1,6 +1,6 @@
 
-#ifndef _BUF_H
-#define _BUF_H
+#ifndef _SEND_H
+#define _SEND_H
 
 #include "list.h"
 

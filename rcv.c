@@ -27,9 +27,9 @@
 #include <malloc.h>
 
 #include "type.h"
-#include "handle.h"
+#include "rcv.h"
 #include "assert.h"
-#include "buf.h"
+#include "send.h"
 #include "define.h"
 
 // define global variable

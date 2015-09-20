@@ -34,8 +34,8 @@
 
 #include "type.h"
 #include "socket.h"
-#include "handle.h"
-#include "buf.h"
+#include "rcv.h"
+#include "send.h"
 #include "define.h"
 
 static int epoll;
