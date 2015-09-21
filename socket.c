@@ -40,7 +40,7 @@
 #include "epoll.h"
 #include "socket.h"
 
-// create socket
+// create server socket
 
 STATUS create_server_socket(int *fd, u16 port) {
 
@@ -78,6 +78,38 @@ STATUS create_server_socket(int *fd, u16 port) {
 	return TRUE;
 
 }
+
+// create client socket
+
+STATUS create_client_socket(int* fd, s8* ip, u16 port) {
+
+	int sock;
+	struct sockaddr_in their_addr;
+
+	sock = socket(AF_INET, SOCK_STREAM, 0);
+	if(-1 == sock) {
+
+		log_print_error("Failed to create socket. \n");
+		return FALSE;
+	}
+
+	their_addr.sin_family = AF_INET;
+	their_addr.sin_addr.s_addr = inet_addr(ip);
+	their_addr.sin_port = htons(port);
+	bzero(&their_addr.sin_zero, 8);
+
+	if(-1 == connect(sock, (struct sockaddr*)&their_addr, sizeof(struct sockaddr))){
+
+		log_print_error("Cannot connect. \n");
+		return FALSE;
+	}
+
+	epoll_add_client(sock);
+	*fd = sock;
+
+	return TRUE;
+}
+
 
 // accept socket
 

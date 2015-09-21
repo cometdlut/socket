@@ -79,6 +79,24 @@ void epoll_add_pipe(int fd) {
 
 }
 
+void epoll_add_client(int sock) {
+
+	int opt;
+
+	// add socket to epoll
+
+	struct epoll_event event;
+
+	event.data.fd = sock;
+	event.events = EPOLLIN | EPOLLOUT;
+	epoll_ctl(epoll, EPOLL_CTL_ADD, sock, &event);
+
+	//set non block mode
+
+	opt = fcntl(sock, F_GETFL, 0);
+	fcntl(sock, F_SETFL, opt | O_NONBLOCK);
+
+}
 
 void epoll_add_socket(int sock) {
 
