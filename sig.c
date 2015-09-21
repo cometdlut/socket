@@ -63,7 +63,28 @@ static void process(int no) {
 
 void sig_init() {
 
+	sigset_t all_mask;
+	sigset_t new_mask;
+	sigset_t old_mask;
+
+	// init cloud_terminate value
+
 	cloud_terminate = 0;
+
+	// first mask all signal
+
+	sigfillset(&all_mask);
+	sigprocmask(SIG_SETMASK, &all_mask, &old_mask);
+
+	// add signal mask
+
+	sigemptyset(&new_mask);
+
+	sigaddset(&new_mask, SIGINT);
+	sigaddset(&new_mask, SIGALRM);
+	sigprocmask(SIG_UNBLOCK, &new_mask, &old_mask);
+
+	// register signal handler
 
 	signal(SIGINT, stub);
 	signal(SIGALRM, process);
