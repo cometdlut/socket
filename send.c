@@ -24,11 +24,15 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
  
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "type.h"
 #include "send.h"
 #include "rcv.h"
 #include "log.h"
 #include "define.h"
+#include "socket.h"
 
 static ListNode g_send_sock[HASH_SEND_SOCK_NUM];
 
@@ -160,6 +164,31 @@ SEND_BUF* get_send_buf(int sock) {
 	}
 	
 	return (SEND_BUF*) p_node;
+}
+
+// remove all send socket
+
+void remove_all_send_socket() {
+
+	s32 i;
+	ListNode* p_node;
+	SEND_SOCK* p_send;
+
+	for(i = 0; i < HASH_SEND_SOCK_NUM; i ++) {
+
+		p_node = g_send_sock[i].next;
+		if(p_node == &g_send_sock[i]) {
+
+			continue;
+		}
+
+		for(; p_node != &g_send_sock[i]; p_node = p_node-> next) {
+
+			p_send = (SEND_SOCK*)(p_node);
+			remove_send_socket(p_send->sock);
+		}
+	}
+
 }
 
 // dump all send sock

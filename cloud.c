@@ -57,6 +57,8 @@ void cloud_run(int sock) {
 
 	close_pipe();
 
+	remove_all_send_socket();
+
 	remove_all_timer();
 
 	close(sock);
