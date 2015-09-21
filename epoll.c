@@ -132,6 +132,11 @@ void epoll_run(int listenfd) {
 
 	while (1) {
 
+		if(TRUE == check_cloud_system()) {
+
+			break;
+		}
+
 		size = epoll_wait(epoll, events, MAX_EVENT_NUM, -1);
 		if(size < 0) {
 

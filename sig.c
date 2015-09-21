@@ -34,17 +34,36 @@
 #include "log.h"
 #include "pipe.h"
 
+int cloud_terminate;
+
+// check if we need to cutdown system
+
+STATUS check_cloud_system() {
+
+	return (cloud_terminate == 1) ? TRUE : FALSE;
+}
+
+// ctrl + c function
+
 static void stub(int no) {
+
+	cloud_terminate = 1;
 
 	return;
 }
+
+// timer function
 
 static void process(int no) {
 
 	write_pipe("", 1);
 }
 
+// signal init function
+
 void sig_init() {
+
+	cloud_terminate = 0;
 
 	signal(SIGINT, stub);
 	signal(SIGALRM, process);
