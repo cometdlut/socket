@@ -191,7 +191,7 @@ void epoll_run(int listenfd) {
 
 			else if(events[i].events & EPOLLRDHUP) {
 
-				remove_socket(sock);
+				remove_send_socket(sock);
 				process_message(SOCK_CLOSE, sock);
 			}
 

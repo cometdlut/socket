@@ -127,9 +127,9 @@ void forward_sock_buffer(int sock, char* buf, int len) {
 	add_buf_to_sock(sock, p_rcv);
 }
 
-// remove socket
+// remove send socket
 
-void remove_socket(int sock) {
+void remove_send_socket(int sock) {
 
 	SEND_BUF* p_buf;
 	SEND_SOCK* p_send;
@@ -215,7 +215,7 @@ STATUS read_socket(int sock) {
 	if (broken) {
 
 		free(buf);
-		remove_socket(sock);
+		remove_send_socket(sock);
 
 		return FALSE;
 	}
@@ -299,7 +299,7 @@ STATUS write_socket(int sock) {
 
 	if (broken) {
 
-		remove_socket(sock);
+		remove_send_socket(sock);
 		return FALSE;
 	}
 
