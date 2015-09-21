@@ -18,7 +18,6 @@ int main(int argc, char* argv[]) {
 	char buf[100];
 	char* msg = "hello, world";
 	struct sockaddr_in their_addr;
-	int i = 0;
 
 	if(argc < 2) {
 
