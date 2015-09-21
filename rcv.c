@@ -90,7 +90,7 @@ void register_callback_func(func onConnect, func onClose, func onRecv) {
 
 // remove sock
 
-static void remove_sock(RCV_SOCK* p_hand) {
+static void remove_rcv_node(RCV_SOCK* p_hand) {
 
 	delete_node(&p_hand->node);
 }
@@ -163,7 +163,7 @@ void process_message(int type, int sock) {
 				free(p_buf);
 			}
 
-			remove_sock(p_hand);
+			remove_rcv_node(p_hand);
 			free(p_hand);
 
 			break;
@@ -292,7 +292,7 @@ void remove_rcv_sock(int sock) {
 		free(p_buf);
 	}
 
-	remove_sock(p_hand);
+	remove_rcv_node(p_hand);
 	free(p_hand);
 
 }
