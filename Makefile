@@ -3,19 +3,24 @@
 
 CC=gcc
 RM=rm
-OBJS= demo.o rcv.o send.o cloud.o epoll.o list.o log.o pipe.o sig.o socket.o timer.o \
-	config.o io.o
+AR=ar
+OBJS= rcv.o send.o cloud.o epoll.o list.o log.o pipe.o sig.o socket.o timer.o config.o io.o
+LIBS= cloud
+DEMOS= demo
+CLIENT= client
 
-all: cloud client
+all: $(LIBS) $(CLIENT)
+	$(CC) -I. -c -o demos/demo.o demos/demo.c
+	$(CC) -o demos/demo demos/demo.o libcloud.a -lpthread
 
-client:
+$(CLIENT):
 	$(CC) test/client.c -g -o test/client
 
-cloud: $(OBJS)
-	$(CC) -o cloud $(OBJS) -lpthread
+$(LIBS): $(OBJS)
+	$(AR) rc libcloud.a $(OBJS)
 
 clean:
-	$(RM) -rf *.o test/client cloud
+	$(RM) -rf *.o *.a test/client demos/*.o demos/demo
 		
 %.o: %.c
 	$(CC) -c -g $<
