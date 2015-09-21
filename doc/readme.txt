@@ -1,11 +1,14 @@
 
 characteristics of cloud:
 
-	1) all event driven framework
-	2) socket + signal + timer
-	3) single thread
-	4) only process connect, close and receive
-	5) send data automatically
-	6) no block
-	7) only for linux platform
-	8) simple but robust
+	01) all event driven framework
+	02) socket + signal + timer
+	03) single thread
+	04) only process connect, close and receive
+	05) send data automatically
+	06) no block
+	07) only for linux platform
+	08) simple but robust
+	09) client should send socket first
+	10) heart beat mechanism shoulde be taken by user
+
