@@ -33,11 +33,13 @@
 
 void io_init() {
 
+	epoll_add_stdio();
 	return;
 }
 
 static void io_process(s8* buf, u32 len) {
 
+	printf("[echo] %s\n", buf);
 	return;
 }
 
@@ -47,7 +49,7 @@ void io_get_input() {
 	u32 len;
 	
 	len = read(STDIN_FILENO, buf, sizeof(buf));
-	if(!len) {
+	if(len) {
 
 		io_process(buf, len);
 	}
