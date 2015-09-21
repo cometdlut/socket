@@ -185,7 +185,9 @@ void remove_all_send_socket() {
 		for(; p_node != &g_send_sock[i]; p_node = p_node-> next) {
 
 			p_send = (SEND_SOCK*)(p_node);
+
 			remove_send_socket(p_send->sock);
+			epoll_del_socket(p_send->sock);
 		}
 	}
 

@@ -63,6 +63,8 @@ void cloud_run(int sock) {
 
 	remove_all_timer();
 
+	epoll_del_socket(sock);
+
 	close(sock);
 
 }
