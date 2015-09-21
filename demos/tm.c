@@ -46,12 +46,6 @@ static void hello(void* param) {
 
 int main(int argc, char *argv[]) {
 
-	if(argc < 2) {
-
-		printf("No port parameter.\n");
-		exit(1);
-	}
-
 	// init cloud
 
 	cloud_init();
