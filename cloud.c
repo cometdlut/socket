@@ -59,6 +59,8 @@ void cloud_run(int sock) {
 
 	remove_all_send_socket();
 
+	remove_all_rcv_socket();
+
 	remove_all_timer();
 
 	close(sock);

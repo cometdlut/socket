@@ -271,6 +271,57 @@ STATUS get_rcv_buf(int sock, s8** buf, u32* len) {
 
 }
 
+// remove rcv sock
+
+void remove_rcv_sock(int sock) {
+
+	RCV_SOCK* p_hand;
+	s8* p_buf;
+	u32 len;
+
+	p_hand = find_handle(sock);
+	if(!p_hand) {
+
+		return;
+	}
+
+	// remove all rcv buffer data
+
+	while(TRUE == get_rcv_buf(p_hand-> sock, &p_buf, &len)) {
+
+		free(p_buf);
+	}
+
+	remove_sock(p_hand);
+	free(p_hand);
+
+}
+// remove all recv socket
+
+void remove_all_rcv_socket() {
+
+	RCV_SOCK* p_hand;
+	ListNode* p_node;
+	s32 i;
+
+	for(i = 0; i < HANDLE_HASH_NUM; i ++) {
+
+		p_node = g_handle[i].next;
+		if(p_node == &g_handle[i]) {
+
+			continue;
+		}
+
+		for(; p_node != &g_handle[i]; p_node = p_node-> next) {
+
+			p_hand = (RCV_SOCK*) p_node;
+			remove_rcv_sock(p_hand->sock);
+		}
+	}
+
+
+}
+
 // dump rcv sock
 
 void dump_all_recv_sock() {
