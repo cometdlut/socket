@@ -42,7 +42,7 @@
 
 // create socket
 
-STATUS create_socket(int *fd, u16 port) {
+STATUS create_server_socket(int *fd, u16 port) {
 
 	int sock;
 	struct sockaddr_in server_addr;

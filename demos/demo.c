@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
 
 	// new socket
 
-	result = create_socket(&sock, atoi(argv[1]));
+	result = create_server_socket(&sock, atoi(argv[1]));
 	assert(result == TRUE);
 
 	//  run cloud
