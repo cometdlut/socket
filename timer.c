@@ -77,7 +77,7 @@ Timer* create_timer(int gap, void(*func)(void*), void* param) {
 	Timer* p_tm;
 
 	// if timer == 0 or param not valid,
-	// just return from add_timer function
+	// just return 0x0
 
 	if(!gap || !func || !param) {
 
@@ -96,7 +96,7 @@ Timer* create_timer(int gap, void(*func)(void*), void* param) {
 
 // register timer module
 
-void add_timer(Timer* p_cur) {
+void start_timer(Timer* p_cur) {
 
 	ListNode* p_node;
 	Timer* p_tm;

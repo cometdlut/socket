@@ -39,7 +39,7 @@ static void hello(void* param) {
 
 	printf("hello\n");
 
-	add_timer(p_tm);
+	start_timer(p_tm);
 }
 
 // entry of executive file
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 	p_tm = create_timer(2, hello, 0);
 	assert(p_tm);
 
-	add_timer(p_tm);
+	start_timer(p_tm);
 
 	//  run cloud
 
