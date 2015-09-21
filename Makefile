@@ -11,7 +11,7 @@ CLIENT= client
 
 all: $(LIBS) $(CLIENT)
 	$(CC) -I. -c -o demos/demo.o demos/demo.c
-	$(CC) -o demos/demo demos/demo.o libcloud.a -lpthread
+	$(CC) -o demos/demo demos/demo.o libcloud.a
 
 $(CLIENT):
 	$(CC) test/client.c -g -o test/client

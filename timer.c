@@ -28,7 +28,6 @@
 #include <time.h>
 #include <sys/time.h>
 #include <stdlib.h>
-#include <pthread.h>
 
 #include "type.h"
 #include "timer.h"
