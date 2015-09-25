@@ -214,6 +214,17 @@ void epoll_run(int listenfd) {
 
 			else if(events[i].events & EPOLLRDHUP) {
 
+				// send bye feed back, client should take mechanism like this, send - shutdown (write) - close
+				// server should be like this, read - close
+
+				read_socket(sock);
+
+				// client already shutdown, but can still receive data
+
+				write(sock, "bye", strlen("bye"));
+
+				// finally remove socket
+
 				remove_send_socket(sock);
 				process_message(SOCK_CLOSE, sock);
 			}
