@@ -49,6 +49,11 @@ void epoll_init() {
 	memset(events, 0, sizeof(events));
 }
 
+void close_epoll() {
+
+	close(epoll);
+}
+
 void epoll_add_stdio() {
 
 	struct epoll_event event;

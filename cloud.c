@@ -67,6 +67,8 @@ void cloud_run(int sock) {
 
 	epoll_del_socket(sock);
 
+	close_epoll();
+
 	close(sock);
 
 }
