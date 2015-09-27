@@ -113,7 +113,7 @@ static int  check_type(char* card, int length) {
 			assert(0);
 			
 		case 4:
-			/* check BOMB, MORE_DOUBLE, MORE_THREE_ONE */
+			/* check BOMB, MORE_DOUBLE, THREE_ONE */
 			
 		default:
 		
