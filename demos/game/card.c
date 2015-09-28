@@ -60,6 +60,10 @@ static char local_card[54 /3 + 3];
 
 static int current_boss;
 
+// current bet
+
+static int current_bet;
+
 // define game state
 
 #define INIT_STATE   0x0
@@ -231,7 +235,7 @@ void process_card(char* card[], int length, int sender, int finish) {
 		return;
 	}
 	
-	// some one try to give up this opportunity
+	// someone try to give up this opportunity
 	
 	if(0 == length) {
 		if(GAME_STATE == current_game_state) {
