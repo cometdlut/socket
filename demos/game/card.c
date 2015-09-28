@@ -222,10 +222,6 @@ static _process_card(char* card, int length)
 
 void process_card(char* card[], int length, int sender, int finish) {
 	
-	if(NULL == card) {
-		assert(0);
-	}
-	
 	// check if finish already
 	
 	if(finish) {
