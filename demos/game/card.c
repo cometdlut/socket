@@ -212,7 +212,9 @@ static _process_card(char* card, int length)
 			}else {
 				assert(0);
 			}
-			
+
+			break;
+
 		default:
 			assert(0);
 	}
