@@ -198,7 +198,7 @@ static _process_card(char* card, int length)
 			}else if(type == DOU_QUEUES || type == BOMB) {
 				/* ... */
 			}else {
-				asserrt(0);
+				assert(0);
 			}
 			
 			break;
