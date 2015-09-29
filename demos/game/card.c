@@ -51,6 +51,8 @@ typedef struct _CARD{
 #define TRUE 0
 #define FALSE ~0x0
 
+#define MAX_GROUP  0xffff
+
 // function declaration
 
 static STATUS is_three_cards(char card[], int length);
@@ -58,36 +60,39 @@ static STATUS is_bomb(char card[], int length);
 
 // current holding card num
 
-static int current_card_num;
+static int current_card_num[MAX_GROUP];
 
 // current game state
 
-static int current_game_state;
+static int current_game_state[MAX_GROUP];
 
 // current card owner
 
-static int current_owner;
+static int current_owner[MAX_GROUP];
 
 // current card type
 
-static int current_card_type;
+static int current_card_type[MAX_GROUP];
 
 // current card data
 
-static char local_card[54 /3 + 3];
+static char local_card[MAX_GROUP][54 /3 + 3];
 
 // current boss
 
-static int current_boss;
+static int current_boss[MAX_GROUP];
 
 // current bet
 
-static int current_bet;
+static int current_bet[MAX_GROUP];
 
 // current big
 
-static int current_big;
+static int current_big[MAX_GROUP];
 
+// current gamer
+
+static int current_user[MAX_GROUP][3];
 
 // define game state
 
@@ -778,7 +783,7 @@ static _process_card(char* card, int length, int group)
 	
 	type = check_type(card, length);
 	
-	switch(current_card_type) {
+	switch(current_card_type[group]) {
 		
 		case SINGLE_CARD:
 		
@@ -956,7 +961,7 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 	// someone try to give up this opportunity
 	
 	if(0 == length) {
-		if(GAME_STATE == current_game_state) {
+		if(GAME_STATE == current_game_state[group]) {
 			assert(0);
 		}
 		
@@ -965,25 +970,25 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 	
 	// first get card from user
 	
-	if(0 == current_owner) {
+	if(0 == current_owner[group]) {
 		
-		current_card_num = length;
-		current_owner = sender;
-		memmove(local_card, card, length);
+		current_card_num[group] = length;
+		current_owner[group] = sender;
+		memmove(local_card[group], card, length);
 		
-		current_game_state = RUN_STATE;
-		current_card_type = check_type(card, length);
+		current_game_state[group] = RUN_STATE;
+		current_card_type[group] = check_type(card, length);
 		
 		return;
 	}
 	
 	// sender equals to owner
 	
-	if(sender == current_owner) {
+	if(sender == current_owner[group]) {
 		
-		current_card_num = length;
-		memmove(local_card, card, length);
-		current_card_type = check_type(card, length);
+		current_card_num[group] = length;
+		memmove(local_card[group], card, length);
+		current_card_type[group] = check_type(card, length);
 		
 		return;
 	}
@@ -992,10 +997,10 @@ void process_card(char card[], int length, int sender, int finish, int group) {
 	
 	_process_card(card, length, group);
 	
-	memmove(local_card, card, length);
-	current_card_num = length;
-	current_owner = sender;
-	current_card_type = check_type(card, length);
+	memmove(local_card[group], card, length);
+	current_card_num[group] = length;
+	current_owner[group] = sender;
+	current_card_type[group] = check_type(card, length);
 	
 	return;
 }
