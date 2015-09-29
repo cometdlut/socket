@@ -111,6 +111,32 @@ void deal_card() {
 
 void resort_cards(char card[], int length) {
 
+	int i;
+	int j;
+	char tmp;
+	char var1;
+	char var2;
+
+	for(i = length -1; i >= 1; i --) {
+		for(j = 0; j < i; j ++) {
+
+			var1 = card[i];
+			var2 = card[i + 1];
+
+			if(var1 != 52 && var1 != 53)
+				var1 = var1 % 13;
+
+			if(var2 != 52 && var2 != 53)
+				var2 = var2 % 13;
+
+			if(var1 > var2) {
+
+				tmp = card[i];
+				card[i] = card[i +1];
+				card[i + 1] = tmp;
+			}
+		}
+	}
 }
 
 // check specified card
