@@ -521,39 +521,142 @@ static int  check_type(char* card, int length) {
 	switch(length) {
 		
 		case 1:
-			/* check single card */
+			if(TRUE == is_single_card(card, length)) {
+
+				return SINGLE_CARD;
+			}
+
+			assert(0);
 			
 		case 2:
 
-			/* check DOU_QUEENS, DOUBLE_CARD */
-			
+			if(TRUE == is_double_cards(card, length)) {
+
+				return DOUBLE_CARD;
+
+			}else if(TRUE == is_double_queens(card, length)) {
+
+				return DOU_QUEENS;
+			}else {
+
+				assert(0);
+			}
+
 		case 3:
 
-			/* check THREE_CARD */
+			if(TRUE == is_three_cards(card, length)) {
+
+				return THREE_CARD;
+			}else {
+
+				assert(0);
+			}
 			
 		case 4:
 
-			/* check BOMB, THREE_ONE */
+			if(TRUE == is_bomb(card, length)) {
+
+				return BOMB;
+
+			}else if(TRUE == is_three_one(card, length)) {
+
+				return THREE_ONE;
+			}else {
+
+				assert(0);
+			}
 
 		case 5:
 
-			/* check SEQUENCE, THREE_TWO */
+			if(TRUE == is_sequence(card, length)) {
+
+				return SEQUENCE;
+
+			}else if(TRUE == is_three_two(card, length)) {
+
+				return THREE_TWO;
+			}else {
+
+				assert(0);
+			}
 
 		case 6:
 
-			/* check SEQUENCE, FOUR_TWO_DIFF, MORE_THREE, MORE_DOUBLE */
+			if(TRUE == is_sequence(card, length)) {
+
+				return SEQUENCE;
+
+			}else if(TRUE == is_four_two_diff(card, length)) {
+
+				return FOUR_TWO_DIFF;
+
+			}else if(TRUE == is_more_three(card, length)) {
+
+				return MORE_THREE;
+
+			}else if(TRUE == is_more_double(card, length)) {
+
+				return MORE_DOUBLE;
+			}else {
+
+				assert(0);
+			}
 
 		case 7:
 
-			/* check SEQUENCE */
+			if(TRUE == is_sequence(card, length)) {
+
+				return SEQUENCE;
+			}else {
+
+				assert(0);
+			}
 
 		case 8:
+			if(TRUE == is_sequence(card, length)) {
 
-			/* check SEQUENCE, FOUR_TWO_SAME, MORE_TWO, MORE_THREE_ONE */
-			
+				return SEQUENCE;
+
+			}else if(TRUE == is_four_two_same(card, length)) {
+
+				return FOUR_TWO_SAME;
+
+			}else if(TRUE == is_more_three_one(card, length)) {
+
+				return MORE_THREE_ONE;
+
+			}else if(TRUE == is_more_double(card, length)) {
+
+				return MORE_DOUBLE;
+			}else {
+
+				assert(0);
+			}
+
 		default:
-		
-			/* check SEQUENCE, MORE_DOUBLE, MORE_THREE, MORE_THREE_ONE, MORE_THREE_TWO */
+			if(TRUE == is_sequence(card, length)) {
+
+				return SEQUENCE;
+
+			}else if(TRUE == more_three_two(card, length)) {
+
+				return MORE_THREE_TWO;
+
+			}else if(TRUE == is_more_three_one(card, length)) {
+
+				return MORE_THREE_ONE;
+
+			}else if(TRUE == is_more_three(card, length)) {
+
+				return MORE_THREE;
+
+			}else if(TRUE == is_more_double(card, length)){
+
+				return MORE_DOUBLE;
+			}else {
+
+				assert(0);
+			}
 	}
 }
 
