@@ -300,7 +300,7 @@ static STATUS is_four_two_diff(char card[], int length) {
 
 		return TRUE;
 	}else {
-		if(TRIE == is_same_card(card[0], card[1])) {
+		if(TRUE == is_same_card(card[0], card[1])) {
 			return FALSE;
 		}
 
