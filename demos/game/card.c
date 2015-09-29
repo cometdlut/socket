@@ -100,6 +100,350 @@ void deal_card() {
 #define MORE_THREE     0xc
 #define MORE_THREE_ONE 0xd
 #define MORE_THREE_TWO 0xe
+#define TYPE_ERR       0xffffffff
+
+// mapping method
+
+// 3 - 0, 4 - 1, 5 - 2, 6 - 3, 7 - 4, 8 - 5
+// 9 - 6, 10 -7, j - 8, p - 9, k - 10, A - 11, 2 - 12
+
+// shuffle cards by real value
+
+void resort_cards(char card[], int length) {
+
+}
+
+// check specified card
+
+static STATUS is_same_card(char a, char b) {
+
+	return ((a % 13) == (b % 13)) ? TRUE : FALSE;
+}
+
+
+static STATUS is_single_card(char card[], int length) {
+
+	assert(card);
+	assert(length == 1);
+
+	return TRUE;
+}
+
+
+static STATUS is_double_queens(char card[], int length) {
+
+	assert(card);
+	assert(2 == length);
+
+	if(card[0] == 52 && card[1] == 53) {
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+
+static STATUS is_double_cards(char card[], int length) {
+
+	assert(card);
+	assert(2 == length);
+
+	return is_same_card(card[0], card[1]);
+}
+
+
+static STATUS is_three_cards(char card[], int length) {
+
+	assert(card);
+	assert(3 == length);
+
+	if(TRUE == is_same_card(card[0], card[1]) &&
+		TRUE == is_same_card(card[1], card[2])) {
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+
+static STATUS is_bomb(char card[], int length) {
+
+	assert(card);
+	assert(4 == length);
+
+	if(TRUE == is_same_card(card[0], card[1]) &&
+		TRUE == is_same_card(card[1], card[2]) &&
+		TRUE == is_same_card(card[2], card[3])) {
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+
+static STATUS is_sequence(char card[], int length) {
+
+	int i;
+
+	assert(card);
+	assert(length >= 5);
+
+	for(i = 0; i < (length - 1); i ++) {
+
+		if(TRUE != is_same_card(card[i] + 1, card[i]))
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+
+static STATUS is_three_one(char card[], int length) {
+
+	assert(card);
+	assert(length == 4);
+
+	if(TRUE == is_three_cards(card, 3) &&
+		FALSE == is_same_card(card[2], card[3])) {
+
+		return TRUE;
+
+	}else if ( TRUE == is_three_cards(card + 1, 3) &&
+		FALSE == is_same_card(card[0], card[1])) {
+
+		return TRUE;
+	}else {
+
+		return FALSE;
+	}
+}
+
+static STATUS is_three_two(char card[], int length) {
+
+	assert(card);
+	assert(length == 5);
+
+	if(TRUE == is_three_cards(card, 3) &&
+		TRUE == is_double_cards(card +3, 2) &&
+		FALSE == is_same_card(card[2], card[3])) {
+
+		return TRUE;
+
+	}else if ( TRUE == is_three_cards(card + 2, 3) &&
+		TRUE == is_double_cards(card, 2) &&
+		FALSE == is_same_card(card[0], card[1])) {
+
+		return TRUE;
+	}else {
+
+		return FALSE;
+	}
+}
+
+static STATUS is_four_two_diff(char card[], int length) {
+
+	int i;
+
+	assert(card);
+	assert(6 == length);
+
+	for(i = 0; i < 3; i ++) {
+		if(is_bomb(card + i, 4)) {
+			break;
+		}
+	}
+
+	if(3 == i) {
+		return FALSE;
+	}
+
+	if(0 == i) {
+		if(TRUE != is_same_card(card[4], card[5])) {
+			return FALSE;
+		}
+
+		return TRUE;
+
+	} if(1 == i) {
+		if(TRUE != is_same_card(card[0], card[5])) {
+			return FALSE;
+		}
+
+		return TRUE;
+	}else {
+		if(TRIE != is_same_card(card[0], card[1])) {
+			return FALSE;
+		}
+
+		return  TRUE;
+	}
+}
+
+static STATUS is_four_two_same(char card[], int length) {
+
+	int i;
+
+	assert(card);
+	assert(8 == card);
+
+	for(i = 0; i < 4; i ++) {
+		if(TRUE == is_bomb(card +i, 4))
+			break;
+	}
+
+	if((4 == i) || (i % 2))
+		return FALSE;
+
+	if(0 == i) {
+
+		if(TRUE == is_double_cards(card +4, 2) &&
+			TRUE == is_double_cards(card +6, 2) &&
+			FALSE == is_same_card(card[5], card[6])) {
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}else {
+
+		if(TRUE == is_double_cards(card, 2) &&
+			TRUE == is_double_cards(card +6, 2) &&
+			FALSE == is_same_card(card[1], card[6])) {
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+}
+
+static STATUS is_more_double(char card[], int length) {
+
+	int i;
+
+	assert(card);
+	assert((length >= 6) && (0 == (length % 2)));
+
+	// check same cards
+
+	for(i = 0; i < (length >> 1); i ++) {
+
+		if(FALSE == is_same_card(card[2*i], card[2*i] + 1)) {
+			return FALSE;
+		}
+	}
+
+	// check sequence
+
+	for(i = 0; i < ((length >> 1) -1)) {
+
+		if(FALSE == is_same_card(card[2*i] + 1, card[2*(i + 1)])) {
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
+static STATUS is_more_three(char card[], int length) {
+
+	int i;
+
+	assert(card);
+	assert((length >= 6) && (0 == (length % 3)));
+
+	// check three cards
+
+	for(i = 0; i < (length / 3); i ++) {
+		if(FALSE == is_three_card(card + i * 3, 3))
+			return FALSE;
+	}
+
+	// check sequence
+
+	for(i = 0; i < (length / 3 - 1); i ++) {
+
+		if(FALSE == is_same_card(card[3 *i] + 1, card[3*(i+1)]))
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+static STATUS is_more_three_one(char card[], int length) {
+
+	int i;
+	int start;
+
+	assert(card);
+	assert((length >= 8) && (0 == length %4));
+
+	// check three card
+
+	for(i = 0; i < (length -4); i ++) {
+
+		if(TRUE == is_more_three(card + i, length - (length / 4)))
+			break;
+	}
+
+	if(i == (length -4))
+		return FALSE;
+
+	// check single card
+
+	i = start;
+	for(i = 0; i < length - 1; i ++) {
+
+		if(i > start && i < (start + length - (length /4)))
+			continue;
+
+		if(TRUE == is_same_card(card[i], card[i] + 1))
+			return FALSE;
+	}
+
+	return TRUE;
+
+}
+
+static STATUS is_more_three_two(char card[], int length) {
+
+	int i;
+	int start;
+
+	assert(card);
+	assert((length >= 10) && (0 == length %5));
+
+	// check three card
+
+	for(i = 0; i < (length -5); i ++) {
+
+		if(TRUE == is_more_three(card + i, length - (length / 5)))
+			break;
+	}
+
+	if(i == (length -5))
+		return FALSE;
+
+	// check single card
+
+	i = start;
+	for(i = 0; i < length - 1; i ++) {
+
+		if(i >= start && i <= (start + length - (length /5)))
+			continue;
+
+		if(FALSE == is_same_card(card[i], card[i] + 1))
+			return FALSE;
+	}
+
+	return TRUE;
+
+}
+
+// check card type
 
 static int  check_type(char* card, int length) {
 
@@ -108,8 +452,7 @@ static int  check_type(char* card, int length) {
 	switch(length) {
 		
 		case 1:
-
-			/* check SINGLE_CARD */
+			/* check single card */
 			
 		case 2:
 
