@@ -405,7 +405,7 @@ static STATUS is_four_two_same(char card[], int length) {
 	assert(card);
 	assert(8 == card);
 
-	for(i = 0; i < 4; i ++) {
+	for(i = 0; i < 5; i ++) {
 		if(TRUE == is_bomb(card +i, 4))
 			break;
 	}
@@ -423,11 +423,22 @@ static STATUS is_four_two_same(char card[], int length) {
 		}
 
 		return FALSE;
-	}else {
+
+	}else if(2 == i) {
 
 		if(TRUE == is_double_cards(card, 2) &&
 			TRUE == is_double_cards(card +6, 2) &&
 			FALSE == is_same_card(card[1], card[6])) {
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}else {
+
+		if(TRUE == is_double_cards(card, 2) &&
+			TRUE == is_double_cards(card + 2, 2) &&
+			FALSE == is_same_card(card[1], card[2])) {
 
 			return TRUE;
 		}
