@@ -287,20 +287,20 @@ static STATUS is_four_two_diff(char card[], int length) {
 	}
 
 	if(0 == i) {
-		if(TRUE != is_same_card(card[4], card[5])) {
+		if(TRUE == is_same_card(card[4], card[5])) {
 			return FALSE;
 		}
 
 		return TRUE;
 
 	} if(1 == i) {
-		if(TRUE != is_same_card(card[0], card[5])) {
+		if(TRUE == is_same_card(card[0], card[5])) {
 			return FALSE;
 		}
 
 		return TRUE;
 	}else {
-		if(TRIE != is_same_card(card[0], card[1])) {
+		if(TRIE == is_same_card(card[0], card[1])) {
 			return FALSE;
 		}
 
