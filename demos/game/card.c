@@ -107,6 +107,13 @@ void deal_card() {
 // 3 - 0, 4 - 1, 5 - 2, 6 - 3, 7 - 4, 8 - 5
 // 9 - 6, 10 -7, j - 8, p - 9, k - 10, A - 11, 2 - 12
 
+// check cheat function
+
+static STATUS check_cheat(char card[], int length) {
+
+	return FALSE;
+}
+
 // shuffle cards by real value
 
 void resort_cards(char card[], int length) {
@@ -407,26 +414,37 @@ static STATUS is_more_three_one(char card[], int length) {
 	assert(card);
 	assert((length >= 8) && (0 == length %4));
 
-	// check three card
+	// check if there is bomb
 
-	for(i = 0; i < (length -4); i ++) {
+	for(i = 0; i < (length - 3); i ++) {
+
+		if(TRUE == is_bomb(card + i, 4))
+			return FALSE;
+	}
+
+	// check three cards
+
+	for(i = 0; i < (length - 2); i ++) {
 
 		if(TRUE == is_more_three(card + i, length - (length / 4)))
 			break;
 	}
 
-	if(i == (length -4))
+	if(i == (length - 2))
 		return FALSE;
 
 	// check single card
 
-	i = start;
+	start = i;
 	for(i = 0; i < length - 1; i ++) {
 
-		if(i > start && i < (start + length - (length /4)))
+		if(i >= start && i < (start + length - (length /4)))
 			continue;
 
-		if(TRUE == is_same_card(card[i], card[i] + 1))
+		if((i+1) >= start && (i+1) < (start + length - (length /4)))
+			continue;
+
+		if(TRUE == is_same_card(card[i] + 1, card[i + 1]))
 			return FALSE;
 	}
 
@@ -442,31 +460,52 @@ static STATUS is_more_three_two(char card[], int length) {
 	assert(card);
 	assert((length >= 10) && (0 == length %5));
 
+	// check if there is bomb
+
+	for(i = 0; i < (length - 3); i ++) {
+
+		if(TRUE == is_bomb(card + i, 4))
+			return FALSE;
+	}
 	// check three card
 
-	for(i = 0; i < (length -5); i ++) {
+	for(i = 0; i < (length - 2); i ++) {
 
 		if(TRUE == is_more_three(card + i, length - (length / 5)))
 			break;
 	}
 
-	if(i == (length -5))
+	if(i == (length - 2))
 		return FALSE;
 
 	// check single card
 
-	i = start;
-	for(i = 0; i < length - 1; i ++) {
+	start = i;
+	i = 0;
 
-		if(i >= start && i <= (start + length - (length /5)))
+	while(i < length - 1) {
+
+		if(i >= start && i < (start + length - (length /5))) {
+
+			i ++;
 			continue;
+		}
 
-		if(FALSE == is_same_card(card[i], card[i] + 1))
+		if((i+1) >= start && (i+1) < (start + length - (length /5))) {
+
+			i ++;
+			continue;
+		}
+
+		if(FALSE == is_same_card(card[i], card[i] + 1)) {
+
 			return FALSE;
+		}
+
+		i += 2;
 	}
 
 	return TRUE;
-
 }
 
 // check card type
