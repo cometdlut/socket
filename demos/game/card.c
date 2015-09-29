@@ -136,8 +136,8 @@ void resort_cards(char card[], int length) {
 	for(i = length -1; i >= 1; i --) {
 		for(j = 0; j < i; j ++) {
 
-			var1 = card[i];
-			var2 = card[i + 1];
+			var1 = card[j];
+			var2 = card[j + 1];
 
 			if(var1 != SMALL_QUEEN && var1 != BIG_QUEEN)
 				var1 = var1 % SINGLE_CARD_NUM;
@@ -147,9 +147,9 @@ void resort_cards(char card[], int length) {
 
 			if(var1 > var2) {
 
-				tmp = card[i];
-				card[i] = card[i +1];
-				card[i + 1] = tmp;
+				tmp = card[j];
+				card[j] = card[j +1];
+				card[j + 1] = tmp;
 			}
 		}
 	}
