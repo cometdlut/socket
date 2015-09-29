@@ -410,7 +410,7 @@ static STATUS is_four_two_same(char card[], int length) {
 			break;
 	}
 
-	if((4 == i) || (i % 2))
+	if((5 == i) || (i % 2))
 		return FALSE;
 
 	if(0 == i) {
@@ -539,7 +539,7 @@ static STATUS is_more_three_one(char card[], int length) {
 		if((i+1) >= start && (i+1) < (start + length - (length /4)))
 			continue;
 
-		if(TRUE == is_same_card(card[i] + 1, card[i + 1]))
+		if(TRUE == is_same_card(card[i], card[i + 1]))
 			return FALSE;
 	}
 
