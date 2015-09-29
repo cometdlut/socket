@@ -447,7 +447,7 @@ static STATUS is_more_double(char card[], int length) {
 
 	for(i = 0; i < (length >> 1); i ++) {
 
-		if(FALSE == is_same_card(card[2*i], card[2*i] + 1)) {
+		if(FALSE == is_same_card(card[2*i], card[2*i + 1] )) {
 			return FALSE;
 		}
 	}
@@ -473,7 +473,8 @@ static STATUS is_more_three(char card[], int length) {
 
 	// check three cards
 
-	for(i = 0; i < (length / 3); i ++) {
+	for(i = 0; i < (length / 3); i += 3) {
+
 		if(FALSE == is_three_card(card + i * 3, 3))
 			return FALSE;
 	}
