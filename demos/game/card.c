@@ -102,6 +102,10 @@ void deal_card() {
 #define MORE_THREE_TWO 0xe
 #define TYPE_ERR       0xffffffff
 
+#define SMALL_QUEEN     52
+#define BIG_QUEEN       53
+#define SINGLE_CARD_NUM 17
+
 // mapping method
 
 // 3 - 0, 4 - 1, 5 - 2, 6 - 3, 7 - 4, 8 - 5
@@ -130,11 +134,11 @@ void resort_cards(char card[], int length) {
 			var1 = card[i];
 			var2 = card[i + 1];
 
-			if(var1 != 52 && var1 != 53)
-				var1 = var1 % 13;
+			if(var1 != SMALL_QUEEN && var1 != BIG_QUEEN)
+				var1 = var1 % SINGLE_CARD_NUM;
 
-			if(var2 != 52 && var2 != 53)
-				var2 = var2 % 13;
+			if(var2 != SMALL_QUEEN && var2 != BIG_QUEEN)
+				var2 = var2 % SINGLE_CARD_NUM;
 
 			if(var1 > var2) {
 
@@ -150,7 +154,7 @@ void resort_cards(char card[], int length) {
 
 static STATUS is_same_card(char a, char b) {
 
-	return ((a % 13) == (b % 13)) ? TRUE : FALSE;
+	return ((a % SINGLE_CARD_NUM) == (b % SINGLE_CARD_NUM)) ? TRUE : FALSE;
 }
 
 
@@ -168,7 +172,7 @@ static STATUS is_double_queens(char card[], int length) {
 	assert(card);
 	assert(2 == length);
 
-	if(card[0] == 52 && card[1] == 53) {
+	if(card[0] == SMALL_QUEEN && card[1] == BIG_QUEEN) {
 
 		return TRUE;
 	}
