@@ -592,7 +592,7 @@ static STATUS is_more_three_two(char card[], int length) {
 			continue;
 		}
 
-		if(FALSE == is_same_card(card[i], card[i] + 1)) {
+		if(FALSE == is_same_card(card[i], card[i + 1])) {
 
 			return FALSE;
 		}
