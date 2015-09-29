@@ -338,6 +338,8 @@ static STATUS is_sequence(char card[], int length) {
 			return FALSE;
 	}
 
+	assert(2 != card[length -1] % SINGLE_CARD_NUM);
+
 	return TRUE;
 }
 
@@ -497,6 +499,8 @@ static STATUS is_more_double(char card[], int length) {
 		}
 	}
 
+	assert(2 != card[length -1] % SINGLE_CARD_NUM);
+
 	return TRUE;
 }
 
@@ -522,6 +526,8 @@ static STATUS is_more_three(char card[], int length) {
 		if(FALSE == is_same_card(card[3 *i] + 1, card[3*(i+1)]))
 			return FALSE;
 	}
+
+	assert(2 != card[length -1] % SINGLE_CARD_NUM);
 
 	return TRUE;
 }
@@ -552,6 +558,8 @@ static STATUS is_more_three_one(char card[], int length) {
 
 	if(i == (length - 2))
 		return FALSE;
+
+	assert(2 != card[i + (length /4 -1) * 3] % SINGLE_CARD_NUM);
 
 	// check single card
 
@@ -597,6 +605,8 @@ static STATUS is_more_three_two(char card[], int length) {
 
 	if(i == (length - 2))
 		return FALSE;
+
+	assert(2 != card[i + (length /5 -1) * 3] % SINGLE_CARD_NUM);
 
 	// check single card
 
