@@ -64,6 +64,11 @@ static int current_boss;
 
 static int current_bet;
 
+// current big
+
+static int current_big;
+
+
 // define game state
 
 #define INIT_STATE   0x0
@@ -149,6 +154,80 @@ void resort_cards(char card[], int length) {
 		}
 	}
 }
+
+// get big data
+
+int get_big_data(char card[], int length, int type) {
+
+	int i;
+
+	assert(card);
+	assert(length);
+
+	switch(type) {
+
+		case SINGLE_CARD:
+		case DOUBLE_CARD:
+		case THREE_CARD:
+		case BOMB:
+		{
+			return card[0] % SINGLE_CARD_NUM;
+		}
+
+		case SEQUENCE:
+		case MORE_DOUBLE:
+		case MORE_THREE:
+		{
+			return card[length -1] % SINGLE_CARD_NUM;
+		}
+
+		case FOUR_TWO_DIFF:
+		case FOUR_TWO_SAME:
+		{
+			for(i = 0; i < length -3; i ++){
+				if(TRUE == is_bomb(card +i, 4))
+					break;
+			}
+
+			return card[i] % SINGLE_CARD_NUM;
+		}
+
+		case THREE_ONE:
+		case THREE_TWO:
+		{
+			for(i = 0; i < length -2; i ++){
+				if(TRUE == is_three_cards(card +i, 3))
+					break;
+			}
+
+			return card[i] % SINGLE_CARD_NUM;
+		}
+
+		case MORE_THREE_ONE:
+		{
+			for(i = 0; i < length -2; i ++){
+				if(TRUE == is_three_cards(card +i, 3))
+					break;
+			}
+
+			return card[i + (length / 4 -1) * 3] % SINGLE_CARD_NUM;
+		}
+
+		case MORE_THREE_TWO:
+		{
+			for(i = 0; i < length -2; i ++){
+				if(TRUE == is_three_cards(card +i, 3))
+					break;
+			}
+
+			return card[i + (length / 5 -1) * 3] % SINGLE_CARD_NUM;
+		}
+
+		default:
+			assert(0);
+	}
+}
+
 
 // check specified card
 
@@ -516,6 +595,7 @@ static STATUS is_more_three_two(char card[], int length) {
 
 static int  check_type(char* card, int length) {
 
+	assert(card);
 	assert(length);
 	
 	switch(length) {
