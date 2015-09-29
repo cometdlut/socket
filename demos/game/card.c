@@ -27,14 +27,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
+#include <memory.h>
 
 // define struct card
+
+typedef struct _LinkNode {
+
+	struct _LinkNode* prev;
+	struct _LinkNode* next;
+
+}LinkNode;
 
 typedef struct _CARD{
 	
 	LinkNode node;
 	int num;
 }CARD;
+
+// data type definition
+
+#define STATUS unsigned int
+#define TRUE 0
+#define FALSE ~0x0
+
+// function declaration
+
+static STATUS is_three_cards(char card[], int length);
+static STATUS is_bomb(char card[], int length);
 
 // current holding card num
 
@@ -98,7 +118,7 @@ void deal_card() {
 #define DOU_QUEENS     0x5
 #define THREE_CARD     0x6
 #define THREE_ONE      0x7
-#define THREE_TW0      0x8
+#define THREE_TWO      0x8
 #define FOUR_TWO_DIFF  0x9
 #define FOUR_TWO_SAME  0xa
 #define MORE_DOUBLE    0xb
@@ -403,7 +423,7 @@ static STATUS is_four_two_same(char card[], int length) {
 	int i;
 
 	assert(card);
-	assert(8 == card);
+	assert(8 == length);
 
 	for(i = 0; i < 5; i ++) {
 		if(TRUE == is_bomb(card +i, 4))
@@ -465,7 +485,7 @@ static STATUS is_more_double(char card[], int length) {
 
 	// check sequence
 
-	for(i = 0; i < ((length >> 1) -1)) {
+	for(i = 0; i < ((length >> 1) -1); i ++) {
 
 		if(FALSE == is_same_card(card[2*i] + 1, card[2*(i + 1)])) {
 			return FALSE;
@@ -486,7 +506,7 @@ static STATUS is_more_three(char card[], int length) {
 
 	for(i = 0; i < (length / 3); i += 3) {
 
-		if(FALSE == is_three_card(card + i * 3, 3))
+		if(FALSE == is_three_cards(card + i * 3, 3))
 			return FALSE;
 	}
 
@@ -730,7 +750,7 @@ static int  check_type(char* card, int length) {
 
 				return SEQUENCE;
 
-			}else if(TRUE == more_three_two(card, length)) {
+			}else if(TRUE == is_more_three_two(card, length)) {
 
 				return MORE_THREE_TWO;
 
@@ -924,7 +944,7 @@ static _process_card(char* card, int length, int group)
 
 // process card
 
-void process_card(char* card[], int length, int sender, int finish, int group) {
+void process_card(char card[], int length, int sender, int finish, int group) {
 	
 	// check if finish already
 	
@@ -952,30 +972,30 @@ void process_card(char* card[], int length, int sender, int finish, int group) {
 		memmove(local_card, card, length);
 		
 		current_game_state = RUN_STATE;
-		current_card_type = check_type();
+		current_card_type = check_type(card, length);
 		
 		return;
 	}
 	
 	// sender equals to owner
 	
-	if(sender == owner) {
+	if(sender == current_owner) {
 		
 		current_card_num = length;
 		memmove(local_card, card, length);
-		current_card_type = check_type();
+		current_card_type = check_type(card, length);
 		
 		return;
 	}
 	
 	// other ways of processing
 	
-	_process_card(card, length);
+	_process_card(card, length, group);
 	
 	memmove(local_card, card, length);
 	current_card_num = length;
 	current_owner = sender;
-	current_card_type = check_type();
+	current_card_type = check_type(card, length);
 	
 	return;
 }
