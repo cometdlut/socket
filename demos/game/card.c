@@ -752,7 +752,7 @@ static int  check_type(char* card, int length) {
 	}
 }
 
-static _process_card(char* card, int length)
+static _process_card(char* card, int length, int group)
 {
 	int type;
 	
@@ -924,7 +924,7 @@ static _process_card(char* card, int length)
 
 // process card
 
-void process_card(char* card[], int length, int sender, int finish) {
+void process_card(char* card[], int length, int sender, int finish, int group) {
 	
 	// check if finish already
 	
