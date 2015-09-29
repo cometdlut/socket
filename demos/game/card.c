@@ -90,7 +90,7 @@ void deal_card() {
 #define DOUBLE_CARD    0x2
 #define BOMB           0x3
 #define SEQUENCE       0x4
-#define DOU_QUEUES     0x5
+#define DOU_QUEENS     0x5
 #define THREE_CARD     0x6
 #define THREE_ONE      0x7
 #define THREE_TW0      0x8
@@ -565,7 +565,7 @@ static _process_card(char* card, int length)
 		
 			if(type == SINGLE_CARD) {
 				/*  */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/*  */
 			}else {
 				assert(0);
@@ -577,7 +577,7 @@ static _process_card(char* card, int length)
 		
 			if(type == DOUBLE_CARD) {
 				/* ... */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
@@ -589,7 +589,7 @@ static _process_card(char* card, int length)
 
 			if(type == THREE_CARD) {
 				/* ... */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
@@ -601,7 +601,7 @@ static _process_card(char* card, int length)
 		
 			if(type == THREE_ONE) {
 				/* .... */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
@@ -613,7 +613,7 @@ static _process_card(char* card, int length)
 
 			if(type == THREE_TWO) {
 				/* ... */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
@@ -625,7 +625,7 @@ static _process_card(char* card, int length)
 
 			if(type == FOUR_TWO_DIFF) {
 				/* ... */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
@@ -637,7 +637,7 @@ static _process_card(char* card, int length)
 
 			if(type == FOUR_TWO_SAME) {
 				/* ... */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
@@ -650,7 +650,7 @@ static _process_card(char* card, int length)
 		
 			if(type == SEQUENCE) {
 				/* ...*/
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
@@ -662,7 +662,7 @@ static _process_card(char* card, int length)
 		
 			if(type == BOMB) {
 				/* ... */
-			}else if(type == DOU_QUEUES) {
+			}else if(type == DOU_QUEENS) {
 				/* ... */
 			}else {
 				assert(0);
@@ -674,7 +674,7 @@ static _process_card(char* card, int length)
 		
 			if(type == MORE_DOUBLE){
 				/* ... */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
@@ -686,7 +686,7 @@ static _process_card(char* card, int length)
 
 			if(type == MORE_THREE){
 				/* ... */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
@@ -698,7 +698,7 @@ static _process_card(char* card, int length)
 		
 			if(type == MORE_THREE_ONE) {
 				/* ... */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
@@ -710,7 +710,7 @@ static _process_card(char* card, int length)
 
 			if(type == MORE_THREE_TWO) {
 				/* ... */
-			}else if(type == DOU_QUEUES || type == BOMB) {
+			}else if(type == DOU_QUEENS || type == BOMB) {
 				/* ... */
 			}else {
 				assert(0);
