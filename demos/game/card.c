@@ -109,7 +109,7 @@ void deal_card() {
 
 #define SMALL_QUEEN     52
 #define BIG_QUEEN       53
-#define SINGLE_CARD_NUM 17
+#define SINGLE_CARD_NUM 13
 
 // mapping method
 
