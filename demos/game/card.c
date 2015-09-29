@@ -309,7 +309,7 @@ static STATUS is_sequence(char card[], int length) {
 
 	for(i = 0; i < (length - 1); i ++) {
 
-		if(TRUE != is_same_card(card[i] + 1, card[i]))
+		if(TRUE != is_same_card(card[i] + 1, card[i+1]))
 			return FALSE;
 	}
 
